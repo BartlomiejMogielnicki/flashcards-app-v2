@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { hideModal as hideModalAction } from '../../../actions/index';
 
 import Button from '../../atoms/Button/Button';
 import Input from '../../atoms/Input/Input';
@@ -80,22 +82,27 @@ const StyledErrorMessage = styled.p`
   font-weight: bold;
 `;
 
-const Modal = ({ type }) => {
+const Modal = ({ modalType, hideModal }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [nameError, setNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
   let acceptButton;
-  if (type === 'login') {
+  if (modalType === 'login') {
     acceptButton = <Button>Login</Button>;
-  } else if (type === 'register') {
+  } else if (modalType === 'register') {
     acceptButton = <Button>Register</Button>;
   }
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log('Submitted!');
+  };
+
   return (
     <StyledWrapper>
-      <StyledForm>
+      <StyledForm onSubmit={(e) => handleFormSubmit(e)}>
         <StyledInputContainer>
           <label>
             Login:
@@ -110,7 +117,7 @@ const Modal = ({ type }) => {
         </StyledInputContainer>
         <StyledButtonContainer>
           {acceptButton}
-          <Button>Cancel</Button>
+          <Button clicked={hideModal}>Cancel</Button>
         </StyledButtonContainer>
       </StyledForm>
     </StyledWrapper>
@@ -118,7 +125,20 @@ const Modal = ({ type }) => {
 };
 
 Modal.propTypes = {
-  type: PropTypes.string.isRequired,
+  modalType: PropTypes.string.isRequired,
+  hideModal: PropTypes.func,
 };
 
-export default Modal;
+Modal.defaultProps = {
+  hideModal: null,
+};
+
+const mapStateToProps = ({ modalType }) => {
+  return { modalType };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  hideModal: () => dispatch(hideModalAction()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

@@ -1,42 +1,41 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { showModal as showModalAction } from '../actions/index';
 
 import Button from '../components/atoms/Button/Button';
 import Modal from '../components/organisms/Modal/Modal';
 
-class StartView extends Component {
-  state = {
-    showModal: false,
-    modalType: '',
-  };
+const StartView = ({ isShowModal, showModal }) => {
+  const modalType = 'login';
+  return (
+    <>
+      <Button type="login" clicked={() => showModal('login')}>
+        Login
+      </Button>
+      <Button type="register" clicked={() => showModal('register')}>
+        Register
+      </Button>
+      <Link to="/collections">
+        <Button type="test">Test</Button>
+      </Link>
+      {isShowModal && <Modal type={modalType} />}
+    </>
+  );
+};
 
-  handleShowModal = (type) => {
-    let { showModal, modalType } = this.state;
-    showModal = true;
-    modalType = type;
-    this.setState({
-      showModal,
-      modalType,
-    });
-  };
+StartView.propTypes = {
+  isShowModal: PropTypes.bool.isRequired,
+  showModal: PropTypes.func.isRequired,
+};
 
-  render() {
-    const { showModal, modalType } = this.state;
-    return (
-      <>
-        <Button type="login" clicked={() => this.handleShowModal('login')}>
-          Login
-        </Button>
-        <Button type="register" clicked={() => this.handleShowModal('register')}>
-          Register
-        </Button>
-        <Link to="/collections">
-          <Button type="test">Test</Button>
-        </Link>
-        {showModal && <Modal type={modalType} />}
-      </>
-    );
-  }
-}
+const mapStateToProps = ({ isShowModal }) => {
+  return { isShowModal };
+};
 
-export default StartView;
+const mapDispatchToProps = (dispatch) => ({
+  showModal: (modalType) => dispatch(showModalAction(modalType)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartView);
