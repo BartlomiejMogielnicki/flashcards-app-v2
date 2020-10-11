@@ -21,11 +21,9 @@ export const authenticate = (username, password) => (dispatch) => {
   return axios
     .post('http://localhost:3000/users/login', { name: username, password })
     .then((payload) => {
-      console.log(payload);
       dispatch({ type: 'AUTHENTICATION_SUCCESS', payload });
     })
     .catch((error) => {
-      console.log(error);
       dispatch({ type: 'AUTHENTICATION_FAILURE', error });
     });
 };
@@ -36,11 +34,26 @@ export const createAccount = (username, password) => (dispatch) => {
   return axios
     .post('http://localhost:3000/users', { name: username, password })
     .then((payload) => {
-      console.log(payload);
       dispatch({ type: 'CREATEACCOUNT_SUCCESS', payload });
     })
     .catch((error) => {
-      console.log(error);
       dispatch({ type: 'CREATEACCOUNT_FAILURE', error });
+    });
+};
+
+export const getCollections = (userID) => (dispatch) => {
+  dispatch({ type: 'GETCOLLECTIONS_REQUEST' });
+
+  return axios
+    .get('http://localhost:3000/collections', {
+      params: {
+        _id: userID,
+      },
+    })
+    .then((payload) => {
+      dispatch({ type: 'GETCOLLECTIONS_SUCCESS', payload });
+    })
+    .catch((error) => {
+      dispatch({ type: 'GETCOLLECTIONS_FAILURE', error });
     });
 };

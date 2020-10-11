@@ -31,6 +31,11 @@ const rootReducer = (state = initialState, action) => {
         modalType: '',
         userID: action.payload.data.user._id,
       };
+    case 'GETCOLLECTIONS_SUCCESS':
+      return {
+        ...state,
+        userCollections: action.payload.data.collections,
+      };
     default:
       return state;
   }
