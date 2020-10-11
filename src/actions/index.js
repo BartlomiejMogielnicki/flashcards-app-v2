@@ -29,3 +29,18 @@ export const authenticate = (username, password) => (dispatch) => {
       dispatch({ type: 'AUTHENTICATION_FAILURE', error });
     });
 };
+
+export const createAccount = (username, password) => (dispatch) => {
+  dispatch({ type: 'CREATEACCOUNT_REQUEST' });
+
+  return axios
+    .post('http://localhost:3000/users', { name: username, password })
+    .then((payload) => {
+      console.log(payload);
+      dispatch({ type: 'CREATEACCOUNT_SUCCESS', payload });
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch({ type: 'CREATEACCOUNT_FAILURE', error });
+    });
+};

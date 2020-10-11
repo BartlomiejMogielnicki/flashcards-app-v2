@@ -24,6 +24,13 @@ const rootReducer = (state = initialState, action) => {
         modalType: '',
         userID: action.payload.data.user._id,
       };
+    case 'CREATEACCOUNT_SUCCESS':
+      return {
+        ...state,
+        isShowModal: false,
+        modalType: '',
+        userID: action.payload.data.user._id,
+      };
     default:
       return state;
   }

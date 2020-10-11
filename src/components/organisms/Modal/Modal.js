@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   hideModal as hideModalAction,
   authenticate as authenticateAction,
+  createAccount as createAccountAction,
 } from '../../../actions/index';
 
 import Button from '../../atoms/Button/Button';
@@ -85,7 +86,7 @@ const StyledErrorMessage = styled.p`
   font-weight: bold;
 `;
 
-const Modal = ({ modalType, hideModal, authenticate }) => {
+const Modal = ({ modalType, hideModal, authenticate, createAccount }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [nameError, setNameError] = useState(false);
@@ -109,6 +110,8 @@ const Modal = ({ modalType, hideModal, authenticate }) => {
     }
     if (modalType === 'login') {
       authenticate(name, password);
+    } else if (modalType === 'register') {
+      createAccount(name, password);
     }
   };
 
@@ -160,11 +163,13 @@ Modal.propTypes = {
   modalType: PropTypes.string.isRequired,
   hideModal: PropTypes.func,
   authenticate: PropTypes.func,
+  createAccount: PropTypes.func,
 };
 
 Modal.defaultProps = {
   hideModal: null,
   authenticate: null,
+  createAccount: null,
 };
 
 const mapStateToProps = ({ modalType }) => {
@@ -174,6 +179,7 @@ const mapStateToProps = ({ modalType }) => {
 const mapDispatchToProps = (dispatch) => ({
   hideModal: () => dispatch(hideModalAction()),
   authenticate: (username, password) => dispatch(authenticateAction(username, password)),
+  createAccount: (username, password) => dispatch(createAccountAction(username, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);
