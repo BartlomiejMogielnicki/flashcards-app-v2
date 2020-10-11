@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { hideModal as hideModalAction } from '../../../actions/index';
+import {
+  hideModal as hideModalAction,
+  authenticate as authenticateAction,
+} from '../../../actions/index';
 
 import Button from '../../atoms/Button/Button';
 import Input from '../../atoms/Input/Input';
@@ -82,7 +85,7 @@ const StyledErrorMessage = styled.p`
   font-weight: bold;
 `;
 
-const Modal = ({ modalType, hideModal }) => {
+const Modal = ({ modalType, hideModal, authenticate }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [nameError, setNameError] = useState(false);
@@ -97,7 +100,24 @@ const Modal = ({ modalType, hideModal }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitted!');
+
+    if (name.length <= 0) {
+      return setNameError(true);
+    }
+    if (password.length <= 0) {
+      return setPasswordError(true);
+    }
+    if (modalType === 'login') {
+      authenticate(name, password);
+    }
+  };
+
+  const handleInputControl = (e, type) => {
+    if (type === 'name') {
+      setName(e.target.value);
+    } else if (type === 'password') {
+      setPassword(e.target.value);
+    }
   };
 
   return (
@@ -106,12 +126,24 @@ const Modal = ({ modalType, hideModal }) => {
         <StyledInputContainer>
           <label>
             Login:
-            <Input type="text" />
-            {nameError && <StyledErrorMessage>Name is invalid</StyledErrorMessage>}
+            <Input
+              type="text"
+              placeholder="Enter a login..."
+              value={name}
+              onChange={(e) => handleInputControl(e, 'name')}
+              autoFocus
+            />
+            {nameError && <StyledErrorMessage>Login is invalid</StyledErrorMessage>}
           </label>
           <label>
             Password:
-            <Input type="text" />
+            <Input
+              type="text"
+              placeholder="Enter a password..."
+              value={password}
+              onChange={(e) => handleInputControl(e, 'password')}
+              autoFocus
+            />
             {passwordError && <StyledErrorMessage>Password is invalid</StyledErrorMessage>}
           </label>
         </StyledInputContainer>
@@ -127,10 +159,12 @@ const Modal = ({ modalType, hideModal }) => {
 Modal.propTypes = {
   modalType: PropTypes.string.isRequired,
   hideModal: PropTypes.func,
+  authenticate: PropTypes.func,
 };
 
 Modal.defaultProps = {
   hideModal: null,
+  authenticate: null,
 };
 
 const mapStateToProps = ({ modalType }) => {
@@ -139,6 +173,7 @@ const mapStateToProps = ({ modalType }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   hideModal: () => dispatch(hideModalAction()),
+  authenticate: (username, password) => dispatch(authenticateAction(username, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);

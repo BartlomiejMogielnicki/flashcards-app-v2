@@ -10,6 +10,7 @@
   },
   "rules": {
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-underscore-dangle" : 0,
     "react/state-in-constructor": 0,
     "react/forbid-prop-types": 1,
     "react/no-did-update-set-state": 1,

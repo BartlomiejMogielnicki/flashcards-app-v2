@@ -17,6 +17,13 @@ const rootReducer = (state = initialState, action) => {
         isShowModal: false,
         modalType: '',
       };
+    case 'AUTHENTICATION_SUCCESS':
+      return {
+        ...state,
+        isShowModal: false,
+        modalType: '',
+        userID: action.payload.data.user._id,
+      };
     default:
       return state;
   }

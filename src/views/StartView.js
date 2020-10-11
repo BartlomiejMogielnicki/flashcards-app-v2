@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showModal as showModalAction } from '../actions/index';
@@ -7,7 +7,10 @@ import { showModal as showModalAction } from '../actions/index';
 import Button from '../components/atoms/Button/Button';
 import Modal from '../components/organisms/Modal/Modal';
 
-const StartView = ({ isShowModal, showModal }) => {
+const StartView = ({ isShowModal, showModal, userID }) => {
+  if (userID) {
+    return <Redirect to="/collections" />;
+  }
   const modalType = 'login';
   return (
     <>
@@ -28,10 +31,15 @@ const StartView = ({ isShowModal, showModal }) => {
 StartView.propTypes = {
   isShowModal: PropTypes.bool.isRequired,
   showModal: PropTypes.func.isRequired,
+  userID: PropTypes.string,
 };
 
-const mapStateToProps = ({ isShowModal }) => {
-  return { isShowModal };
+StartView.defaultProps = {
+  userID: null,
+};
+
+const mapStateToProps = ({ isShowModal, userID }) => {
+  return { isShowModal, userID };
 };
 
 const mapDispatchToProps = (dispatch) => ({
