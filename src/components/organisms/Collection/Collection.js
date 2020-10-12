@@ -7,7 +7,10 @@ import { Link } from 'react-router-dom';
 import Button from '../../atoms/Button/Button';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
 import cardsImage from '../../../assets/images/cards.png';
-import { setActiveCollection as setActiveCollectionAction } from '../../../actions';
+import {
+  setActiveCollection as setActiveCollectionAction,
+  showModal as showModalAction,
+} from '../../../actions';
 
 const StyledWrapper = styled.div`
   padding: 20px 10px;
@@ -46,7 +49,7 @@ const StyledButtonsContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-const Collection = ({ title, cards, setActiveCollection }) => {
+const Collection = ({ title, cards, id, setActiveCollection, showModal }) => {
   return (
     <StyledWrapper>
       <div>
@@ -67,7 +70,7 @@ const Collection = ({ title, cards, setActiveCollection }) => {
         <Link to="/edit">
           <Button icon="edit" clicked={() => setActiveCollection(title, cards)} />
         </Link>
-        <Button icon="delete" title={title} />
+        <Button icon="delete" clicked={() => showModal('deleteCollection')} />
       </StyledButtonsContainer>
     </StyledWrapper>
   );
@@ -75,6 +78,7 @@ const Collection = ({ title, cards, setActiveCollection }) => {
 Collection.propTypes = {
   title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
+  id: PropTypes.string.isRequired,
   setActiveCollection: PropTypes.func,
 };
 
@@ -84,6 +88,7 @@ Collection.defaultProps = {
 
 const mapDispatchToProps = (dispatch) => ({
   setActiveCollection: (title, cards) => dispatch(setActiveCollectionAction(title, cards)),
+  showModal: (modalType) => dispatch(showModalAction(modalType)),
 });
 
 export default connect(null, mapDispatchToProps)(Collection);

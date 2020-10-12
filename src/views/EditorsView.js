@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import Button from '../components/atoms/Button/Button';
 import EmptySlot from '../components/atoms/EmptySlot/EmptySlot';
+import { resetActiveCollection as resetActiveCollectionAction } from '../actions';
 
 const StyledWrapper = styled.div`
   perspective: 1000px;
@@ -112,7 +113,7 @@ const StyledControlsContainer = styled.div`
   justify-content: space-around;
 `;
 
-const EditorsView = ({ activeCollection }) => {
+const EditorsView = ({ activeCollection, resetActiveCollection }) => {
   let cardsEl;
   if (activeCollection.cards) {
     cardsEl = activeCollection.cards.map((card, index) => (
@@ -134,10 +135,10 @@ const EditorsView = ({ activeCollection }) => {
       </StyledCardsList>
       <StyledControlsContainer>
         <Link to="/collections">
-          <Button icon="apply" />
+          <Button icon="apply" clicked={resetActiveCollection} />
         </Link>
         <Link to="/collections">
-          <Button icon="cancel" />
+          <Button icon="cancel" clicked={resetActiveCollection} />
         </Link>
       </StyledControlsContainer>
     </StyledWrapper>
@@ -154,4 +155,8 @@ const mapStateToProps = ({ activeCollection }) => {
   };
 };
 
-export default connect(mapStateToProps)(EditorsView);
+const mapDispatchToProps = (dispatch) => ({
+  resetActiveCollection: () => dispatch(resetActiveCollectionAction()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditorsView);

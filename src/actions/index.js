@@ -64,6 +64,33 @@ export const getCollections = (userID) => (dispatch) => {
     });
 };
 
+export const createCollection = (userID, title) => (dispatch) => {
+  dispatch({ type: 'CREATECOLLECTION_REQUEST' });
+  return axios
+    .post('http://localhost:3000/collections', { userID, title })
+    .then((payload) => {
+      dispatch({ type: 'CREATECOLLECTION_SUCCESS', payload });
+      dispatch({ type: 'HIDE_MODAL' });
+    })
+    .catch((error) => {
+      dispatch({ type: 'CREATECOLLECTION_FAILURE', error });
+    });
+};
+
+// NOT TESTED YET
+export const deleteCollection = (id) => (dispatch) => {
+  dispatch({ type: 'DELETECOLLECTION_REQUEST' });
+  return axios
+    .delete('http://localhost:3000/collections', { id })
+    .then((payload) => {
+      dispatch({ type: 'CREATECOLLECTION_SUCCESS', payload });
+      dispatch({ type: 'HIDE_MODAL' });
+    })
+    .catch((error) => {
+      dispatch({ type: 'CREATECOLLECTION_FAILURE', error });
+    });
+};
+
 export const setActiveCollection = (title, cards) => {
   return {
     type: 'SET_ACTIVECOLLECTION',
@@ -71,5 +98,11 @@ export const setActiveCollection = (title, cards) => {
       title,
       cards,
     },
+  };
+};
+
+export const resetActiveCollection = () => {
+  return {
+    type: 'RESET_ACTIVECOLLECTION',
   };
 };

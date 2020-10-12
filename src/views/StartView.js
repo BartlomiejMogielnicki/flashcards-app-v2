@@ -7,11 +7,10 @@ import { showModal as showModalAction } from '../actions/index';
 import Button from '../components/atoms/Button/Button';
 import Modal from '../components/organisms/Modal/Modal';
 
-const StartView = ({ isShowModal, showModal, userID }) => {
+const StartView = ({ isShowModal, modalType, showModal, userID }) => {
   if (userID) {
     return <Redirect to="/collections" />;
   }
-  const modalType = 'login';
   return (
     <>
       <Button clicked={() => showModal('login')}>Login</Button>
@@ -34,8 +33,8 @@ StartView.defaultProps = {
   userID: null,
 };
 
-const mapStateToProps = ({ isShowModal, userID }) => {
-  return { isShowModal, userID };
+const mapStateToProps = ({ isShowModal, modalType, userID }) => {
+  return { isShowModal, modalType, userID };
 };
 
 const mapDispatchToProps = (dispatch) => ({

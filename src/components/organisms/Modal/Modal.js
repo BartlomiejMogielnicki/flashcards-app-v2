@@ -6,6 +6,7 @@ import {
   hideModal as hideModalAction,
   authenticate as authenticateAction,
   createAccount as createAccountAction,
+  createCollection as createCollectionAction,
 } from '../../../actions/index';
 
 import Button from '../../atoms/Button/Button';
@@ -86,7 +87,7 @@ const StyledErrorMessage = styled.p`
   font-weight: bold;
 `;
 
-const Modal = ({ modalType, hideModal, authenticate, createAccount }) => {
+const Modal = ({ modalType, hideModal, authenticate, createAccount, createCollection, userID }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [nameError, setNameError] = useState(false);
@@ -97,6 +98,8 @@ const Modal = ({ modalType, hideModal, authenticate, createAccount }) => {
     acceptButton = <Button>Login</Button>;
   } else if (modalType === 'register') {
     acceptButton = <Button>Register</Button>;
+  } else if (modalType === 'createCollection') {
+    acceptButton = <Button>Create</Button>;
   }
 
   const handleFormSubmit = (e) => {
@@ -112,6 +115,8 @@ const Modal = ({ modalType, hideModal, authenticate, createAccount }) => {
       authenticate(name, password);
     } else if (modalType === 'register') {
       createAccount(name, password);
+    } else if (modalType === 'createCollection') {
+      createCollection(userID, name);
     }
   };
 
@@ -172,14 +177,15 @@ Modal.defaultProps = {
   createAccount: null,
 };
 
-const mapStateToProps = ({ modalType }) => {
-  return { modalType };
+const mapStateToProps = ({ modalType, userID }) => {
+  return { modalType, userID };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   hideModal: () => dispatch(hideModalAction()),
   authenticate: (username, password) => dispatch(authenticateAction(username, password)),
   createAccount: (username, password) => dispatch(createAccountAction(username, password)),
+  createCollection: (userID, title) => dispatch(createCollectionAction(userID, title)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);
