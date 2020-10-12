@@ -42,6 +42,14 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         userCollections: action.payload.data.collections,
       };
+    case 'SET_ACTIVECOLLECTION':
+      return {
+        ...state,
+        activeCollection: {
+          title: action.payload.title,
+          cards: action.payload.cards,
+        },
+      };
     default:
       return state;
   }

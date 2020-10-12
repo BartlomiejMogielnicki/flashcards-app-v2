@@ -63,3 +63,13 @@ export const getCollections = (userID) => (dispatch) => {
       dispatch({ type: 'GETCOLLECTIONS_FAILURE', error });
     });
 };
+
+export const setActiveCollection = (title, cards) => {
+  return {
+    type: 'SET_ACTIVECOLLECTION',
+    payload: {
+      title,
+      cards,
+    },
+  };
+};

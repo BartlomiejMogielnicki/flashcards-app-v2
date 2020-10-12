@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Button from '../../atoms/Button/Button';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
 import cardsImage from '../../../assets/images/cards.png';
+import { setActiveCollection as setActiveCollectionAction } from '../../../actions';
 
 const StyledWrapper = styled.div`
   padding: 20px 10px;
@@ -44,34 +46,26 @@ const StyledButtonsContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-const Collection = ({ title, cardsNum }) => {
+const Collection = ({ title, cards, setActiveCollection }) => {
   return (
     <StyledWrapper>
       <div>
         <h2>{title}</h2>
         <Paragraph>
-          {cardsNum} {cardsNum === 1 ? 'Card' : 'Cards'}
+          {cards.length} {cards.length === 1 ? 'Card' : 'Cards'}
         </Paragraph>
       </div>
       <StyledCollectionImage />
       <StyledButtonsContainer>
-        {cardsNum === 0 ? (
+        {cards.length === 0 ? (
           <Button icon="play" disabled />
         ) : (
-          <Link
-            to={{
-              pathname: '/practice',
-            }}
-          >
+          <Link to="/practice">
             <Button icon="play" />
           </Link>
         )}
-        <Link
-          to={{
-            pathname: '/edit',
-          }}
-        >
-          <Button icon="edit" cardsNum={cardsNum} />
+        <Link to="/edit">
+          <Button icon="edit" clicked={() => setActiveCollection(title, cards)} />
         </Link>
         <Button icon="delete" title={title} />
       </StyledButtonsContainer>
@@ -80,7 +74,16 @@ const Collection = ({ title, cardsNum }) => {
 };
 Collection.propTypes = {
   title: PropTypes.string.isRequired,
-  cardsNum: PropTypes.number.isRequired,
+  cards: PropTypes.array.isRequired,
+  setActiveCollection: PropTypes.func,
 };
 
-export default Collection;
+Collection.defaultProps = {
+  setActiveCollection: null,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setActiveCollection: (title, cards) => dispatch(setActiveCollectionAction(title, cards)),
+});
+
+export default connect(null, mapDispatchToProps)(Collection);

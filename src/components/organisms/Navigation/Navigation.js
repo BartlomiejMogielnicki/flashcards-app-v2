@@ -27,7 +27,7 @@ const StyledNavWrapper = styled.div`
 `;
 
 const StyledLinksList = styled.div`
-  margin-right: 20px;
+  margin-right: 50px;
   height: 100%;
   display: flex;
   justify-content: space-evenly;

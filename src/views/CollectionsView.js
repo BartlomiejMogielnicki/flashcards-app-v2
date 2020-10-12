@@ -57,11 +57,7 @@ const CollectionsView = ({ userID, getCollections, userCollections }) => {
   let collections;
   if (userCollections) {
     collections = userCollections.map((collection) => (
-      <Collection
-        key={handleRandomId()}
-        title={collection.title}
-        cardsNum={collection.cards.length}
-      />
+      <Collection key={handleRandomId()} title={collection.title} cards={collection.cards} />
     ));
   }
 
