@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// const icons = {
-//   play: <i className="fas fa-play" />,
-//   edit: <i className="fas fa-cog" />,
-//   delete: <i className="fas fa-trash" />,
-//   apply: <i className="fas fa-check" />,
-//   cancel: <i className="fas fa-times" />,
-//   leftArrow: <i className="fas fa-arrow-left" />,
-//   rightArrow: <i className="fas fa-arrow-right" />,
-//   random: <i className="fas fa-random" />,
-//   plus: <i className="fas fa-plus" />,
-//   home: <i className="fas fa-home" />,
-// };
+const icons = {
+  play: <i className="fas fa-play" />,
+  edit: <i className="fas fa-cog" />,
+  delete: <i className="fas fa-trash" />,
+  // apply: <i className="fas fa-check" />,
+  // cancel: <i className="fas fa-times" />,
+  // leftArrow: <i className="fas fa-arrow-left" />,
+  // rightArrow: <i className="fas fa-arrow-right" />,
+  // random: <i className="fas fa-random" />,
+  // plus: <i className="fas fa-plus" />,
+  // home: <i className="fas fa-home" />,
+};
 
 const StyledButton = styled.button`
   width: 40px;
@@ -52,20 +52,26 @@ const StyledButton = styled.button`
 //   }
 // `;
 
-const Button = ({ type, children, clicked }) => {
-  return <StyledButton onClick={clicked}>{children}</StyledButton>;
+const Button = ({ icon, children, clicked, disabled }) => {
+  return (
+    <StyledButton disabled={disabled} onClick={clicked}>
+      {children} {icons[icon]}
+    </StyledButton>
+  );
 };
 
 Button.propTypes = {
-  type: PropTypes.string,
+  icon: PropTypes.string,
   children: PropTypes.string,
   clicked: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
-  type: null,
+  icon: null,
   children: null,
   clicked: null,
+  disabled: false,
 };
 
 export default Button;

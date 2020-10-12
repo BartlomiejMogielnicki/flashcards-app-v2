@@ -44,7 +44,7 @@ const StyledButtonsContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-const Collection = ({ title, cardsNum, cards }) => {
+const Collection = ({ title, cardsNum }) => {
   return (
     <StyledWrapper>
       <div>
@@ -56,7 +56,7 @@ const Collection = ({ title, cardsNum, cards }) => {
       <StyledCollectionImage />
       <StyledButtonsContainer>
         {cardsNum === 0 ? (
-          <Button icon="play-disabled" />
+          <Button icon="play" disabled />
         ) : (
           <Link
             to={{

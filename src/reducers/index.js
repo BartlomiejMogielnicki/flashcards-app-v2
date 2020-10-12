@@ -24,6 +24,12 @@ const rootReducer = (state = initialState, action) => {
         modalType: '',
         userID: action.payload.data.user._id,
       };
+    case 'LOGOUT':
+      return {
+        ...state,
+        userID: '',
+        userCollections: [],
+      };
     case 'CREATEACCOUNT_SUCCESS':
       return {
         ...state,

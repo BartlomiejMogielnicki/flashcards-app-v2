@@ -28,6 +28,12 @@ export const authenticate = (username, password) => (dispatch) => {
     });
 };
 
+export const logout = () => {
+  return {
+    type: 'LOGOUT',
+  };
+};
+
 export const createAccount = (username, password) => (dispatch) => {
   dispatch({ type: 'CREATEACCOUNT_REQUEST' });
 

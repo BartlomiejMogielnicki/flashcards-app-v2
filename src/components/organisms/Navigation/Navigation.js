@@ -1,7 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 import Button from '../../atoms/Button/Button';
+
+import { logout as logoutAction } from '../../../actions/index';
 
 const letters = ['F', 'L', 'A', 'S', 'H', 'C', 'A', 'R', 'D', 'S'];
 
@@ -59,7 +63,7 @@ const StyledLetters = styled.div`
   }
 `;
 
-const Navigation = () => {
+const Navigation = ({ logout }) => {
   const lerrersEl = letters.map((letter, index) => (
     <StyledLetters key={index}>{letter}</StyledLetters>
   ));
@@ -68,13 +72,29 @@ const Navigation = () => {
       <StyledLogoContainer>{lerrersEl}</StyledLogoContainer>
       <StyledLinksList>
         <li>
-          <NavLink to="/collections">
-            <Button icon="home" />
-          </NavLink>
+          <Link to="/">
+            <Button clicked={logout}>Logout</Button>
+          </Link>
         </li>
       </StyledLinksList>
     </StyledNavWrapper>
   );
 };
 
-export default Navigation;
+Navigation.propTypes = {
+  logout: PropTypes.func,
+};
+
+Navigation.defaultProps = {
+  logout: null,
+};
+
+const mapStateToProps = ({ userID, userCollections }) => {
+  return { userID, userCollections };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logoutAction()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

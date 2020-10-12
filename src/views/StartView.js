@@ -14,14 +14,10 @@ const StartView = ({ isShowModal, showModal, userID }) => {
   const modalType = 'login';
   return (
     <>
-      <Button type="login" clicked={() => showModal('login')}>
-        Login
-      </Button>
-      <Button type="register" clicked={() => showModal('register')}>
-        Register
-      </Button>
+      <Button clicked={() => showModal('login')}>Login</Button>
+      <Button clicked={() => showModal('register')}>Register</Button>
       <Link to="/collections">
-        <Button type="test">Test</Button>
+        <Button>Test</Button>
       </Link>
       {isShowModal && <Modal type={modalType} />}
     </>
