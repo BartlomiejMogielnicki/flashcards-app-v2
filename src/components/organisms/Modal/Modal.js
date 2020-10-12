@@ -100,6 +100,8 @@ const Modal = ({ modalType, hideModal, authenticate, createAccount, createCollec
     acceptButton = <Button>Register</Button>;
   } else if (modalType === 'createCollection') {
     acceptButton = <Button>Create</Button>;
+  } else if (modalType === 'delete') {
+    acceptButton = <Button>Delete</Button>;
   }
 
   const handleFormSubmit = (e) => {

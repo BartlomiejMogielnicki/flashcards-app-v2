@@ -77,17 +77,19 @@ export const createCollection = (userID, title) => (dispatch) => {
     });
 };
 
-// NOT TESTED YET
 export const deleteCollection = (id) => (dispatch) => {
   dispatch({ type: 'DELETECOLLECTION_REQUEST' });
   return axios
-    .delete('http://localhost:3000/collections', { id })
+    .delete('http://localhost:3000/collections', {
+      params: {
+        id,
+      },
+    })
     .then((payload) => {
-      dispatch({ type: 'CREATECOLLECTION_SUCCESS', payload });
-      dispatch({ type: 'HIDE_MODAL' });
+      dispatch({ type: 'DELETECOLLECTION_SUCCESS', payload });
     })
     .catch((error) => {
-      dispatch({ type: 'CREATECOLLECTION_FAILURE', error });
+      dispatch({ type: 'DELETECOLLECTION_FAILURE', error });
     });
 };
 

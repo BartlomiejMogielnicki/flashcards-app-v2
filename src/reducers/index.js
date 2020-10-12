@@ -61,6 +61,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         userCollections: action.payload.data.collections,
       };
+    case 'DELETECOLLECTION_SUCCESS':
+      return {
+        ...state,
+        userCollections: action.payload.data.collections,
+      };
     default:
       return state;
   }
