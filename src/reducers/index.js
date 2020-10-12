@@ -29,6 +29,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         userID: '',
         userCollections: [],
+        activeCollection: {},
       };
     case 'CREATEACCOUNT_SUCCESS':
       return {
@@ -49,6 +50,11 @@ const rootReducer = (state = initialState, action) => {
           title: action.payload.title,
           cards: action.payload.cards,
         },
+      };
+    case 'RESET_ACTIVECOLLECTION':
+      return {
+        ...state,
+        activeCollection: {},
       };
     default:
       return state;

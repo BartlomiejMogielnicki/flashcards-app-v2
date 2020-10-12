@@ -73,3 +73,9 @@ export const setActiveCollection = (title, cards) => {
     },
   };
 };
+
+export const resetActiveCollection = () => {
+  return {
+    type: 'RESET_ACTIVECOLLECTION',
+  };
+};
