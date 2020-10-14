@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import FlipCard from '../../molecules/FlipCard/FlipCard';
 
 const StyledWrapper = styled.div`
@@ -27,8 +29,45 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const CardsCarousel = () => {
-  return <h1>Carousel</h1>;
+const CardsCarousel = ({ activeCollection, activeCard }) => {
+  const handleRandomId = () => {
+    return Math.floor(Math.random() * 1000000);
+  };
+
+  const { cards } = activeCollection;
+  return (
+    <StyledWrapper>
+      {cards[activeCard - 1] && (
+        <FlipCard
+          key={handleRandomId()}
+          cardLeft
+          card={cards[activeCard - 1]}
+          activeCard={activeCard - 1}
+        />
+      )}
+      <FlipCard key={handleRandomId()} card={cards[activeCard]} activeCard={activeCard} />
+      {cards[activeCard + 1] && (
+        <FlipCard
+          key={handleRandomId()}
+          cardRight
+          card={cards[activeCard + 1]}
+          activeCard={activeCard + 1}
+        />
+      )}
+    </StyledWrapper>
+  );
 };
 
-export default CardsCarousel;
+CardsCarousel.propTypes = {
+  activeCollection: PropTypes.object.isRequired,
+  activeCard: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = ({ activeCollection, activeCard }) => {
+  return {
+    activeCollection,
+    activeCard,
+  };
+};
+
+export default connect(mapStateToProps)(CardsCarousel);
