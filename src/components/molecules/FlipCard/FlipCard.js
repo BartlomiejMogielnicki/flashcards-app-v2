@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import Card from '../../atoms/Card/Card';
 
 const slideInLeft = keyframes`
 from {
@@ -93,8 +97,65 @@ const StyledCardContainer = styled.div`
   }
 `;
 
-const FlipCard = () => {
-  return <h1>FlipCard</h1>;
+const FlipCard = ({ card, cardLeft, cardRight, swapDirection }) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  // REMEMBER TO ADD KEYBOARD EVENTS HANDLERS!!!!!!!!!!!!!!!
+  const cardLeftEl = (
+    <StyledCardContainer
+      className={`${isFlipped ? 'flipped' : ''} 
+      ${swapDirection === 'right' ? 'slideOutLeft' : 'cardLeft'}`}
+      onClick={() => setIsFlipped(!isFlipped)}
+      cardLeft
+    >
+      <Card isFlipped={isFlipped} card={card} />
+    </StyledCardContainer>
+  );
+  const cardActiveEl = (
+    <StyledCardContainer
+      className={`${isFlipped ? 'flipped' : ''}
+      ${swapDirection === 'right' ? 'slideInLeft' : 'slideInRight'}`}
+      onClick={() => setIsFlipped(!isFlipped)}
+    >
+      <Card isFlipped={isFlipped} card={card} />
+    </StyledCardContainer>
+  );
+  const cardRightEl = (
+    <StyledCardContainer
+      className={`${isFlipped ? 'flipped' : ''} 
+      ${swapDirection === 'right' ? 'cardRight' : 'slideOutRight'}`}
+      onClick={() => setIsFlipped(!isFlipped)}
+      cardRight
+    >
+      <Card isFlipped={isFlipped} card={card} />
+    </StyledCardContainer>
+  );
+
+  return (
+    <>
+      {cardLeft && cardLeftEl}
+      {!cardLeft && !cardRight && cardActiveEl}
+      {cardRight && cardRightEl}
+    </>
+  );
 };
 
-export default FlipCard;
+FlipCard.propTypes = {
+  card: PropTypes.object.isRequired,
+  cardLeft: PropTypes.bool,
+  cardRight: PropTypes.bool,
+  swapDirection: PropTypes.string.isRequired,
+};
+
+FlipCard.defaultProps = {
+  cardLeft: null,
+  cardRight: null,
+};
+
+const mapStateToProps = ({ swapDirection }) => {
+  return {
+    swapDirection,
+  };
+};
+
+export default connect(mapStateToProps)(FlipCard);

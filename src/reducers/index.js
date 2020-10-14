@@ -2,6 +2,7 @@ const initialState = {
   isShowModal: false,
   modalType: '',
   activeCard: 0,
+  swapDirection: 'right',
   // userID for tests - remember to delete!
   userID: '5f804e65b5343724f459dc00',
 };
