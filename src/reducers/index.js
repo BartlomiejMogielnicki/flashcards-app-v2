@@ -76,6 +76,18 @@ const rootReducer = (state = initialState, action) => {
           cards: [...state.activeCollection.cards, action.payload.data.card],
         },
       };
+    case 'DELETECARD_SUCCESS':
+      return {
+        ...state,
+        activeCollection: {
+          ...state.activeCollection,
+          cards: [
+            ...state.activeCollection.cards.filter((card) => {
+              return card._id !== action.payload.data.id;
+            }),
+          ],
+        },
+      };
     default:
       return state;
   }

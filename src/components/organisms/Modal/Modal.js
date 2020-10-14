@@ -165,7 +165,6 @@ const Modal = ({
               placeholder="Enter a password..."
               value={password}
               onChange={(e) => handleInputControl(e, 'password')}
-              autoFocus
             />
             {passwordError && <StyledErrorMessage>Password is invalid</StyledErrorMessage>}
           </label>

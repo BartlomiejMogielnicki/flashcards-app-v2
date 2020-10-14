@@ -121,3 +121,20 @@ export const createCard = (userID, title, question, answer) => (dispatch) => {
       dispatch({ type: 'CREATECARD_FAILURE', error });
     });
 };
+
+export const deleteCard = (collectionTitle, id) => (dispatch) => {
+  dispatch({ type: 'DELETECARD_REQUEST' });
+  return axios
+    .delete('http://localhost:3000/cards', {
+      params: {
+        collectionTitle,
+        id,
+      },
+    })
+    .then((payload) => {
+      dispatch({ type: 'DELETECARD_SUCCESS', payload });
+    })
+    .catch((error) => {
+      dispatch({ type: 'DELETECARD_FAILURE', error });
+    });
+};

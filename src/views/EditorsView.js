@@ -10,6 +10,7 @@ import Modal from '../components/organisms/Modal/Modal';
 import {
   resetActiveCollection as resetActiveCollectionAction,
   showModal as showModalAction,
+  deleteCard as deleteCardAction,
 } from '../actions';
 
 const StyledWrapper = styled.div`
@@ -123,15 +124,18 @@ const EditorsView = ({
   isShowModal,
   modalType,
   showModal,
+  deleteCard,
 }) => {
   let cardsEl;
   if (activeCollection.cards) {
     cardsEl = activeCollection.cards.map((card, index) => (
-      <StyledCardItem key={card.id}>
+      <StyledCardItem key={card._id}>
         <StyledCard>{card.question}</StyledCard>
         <StyledCard>{card.answer}</StyledCard>
         <StyledCardNumber>{index + 1}</StyledCardNumber>
-        <StyledDeleteButton>x</StyledDeleteButton>
+        <StyledDeleteButton onClick={() => deleteCard(activeCollection.title, card._id)}>
+          x
+        </StyledDeleteButton>
       </StyledCardItem>
     ));
   }
@@ -162,6 +166,7 @@ EditorsView.propTypes = {
   isShowModal: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   showModal: PropTypes.func,
+  deleteCard: PropTypes.func.isRequired,
 };
 
 EditorsView.defaultProps = {
@@ -180,6 +185,7 @@ const mapStateToProps = ({ activeCollection, isShowModal, modalType }) => {
 const mapDispatchToProps = (dispatch) => ({
   resetActiveCollection: () => dispatch(resetActiveCollectionAction()),
   showModal: (modalType) => dispatch(showModalAction(modalType)),
+  deleteCard: (collectionTitle, id) => dispatch(deleteCardAction(collectionTitle, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorsView);
