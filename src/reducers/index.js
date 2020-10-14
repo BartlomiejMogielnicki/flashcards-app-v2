@@ -1,6 +1,8 @@
 const initialState = {
   isShowModal: false,
   modalType: '',
+  // userID for tests - remember to delete!
+  userID: '5f804e65b5343724f459dc00',
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -65,6 +67,14 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         userCollections: action.payload.data.collections,
+      };
+    case 'CREATECARD_SUCCESS':
+      return {
+        ...state,
+        activeCollection: {
+          ...state.activeCollection,
+          cards: [...state.activeCollection.cards, action.payload.data.card],
+        },
       };
     default:
       return state;

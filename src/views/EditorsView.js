@@ -6,7 +6,11 @@ import styled from 'styled-components';
 
 import Button from '../components/atoms/Button/Button';
 import EmptySlot from '../components/atoms/EmptySlot/EmptySlot';
-import { resetActiveCollection as resetActiveCollectionAction } from '../actions';
+import Modal from '../components/organisms/Modal/Modal';
+import {
+  resetActiveCollection as resetActiveCollectionAction,
+  showModal as showModalAction,
+} from '../actions';
 
 const StyledWrapper = styled.div`
   perspective: 1000px;
@@ -113,7 +117,13 @@ const StyledControlsContainer = styled.div`
   justify-content: space-around;
 `;
 
-const EditorsView = ({ activeCollection, resetActiveCollection }) => {
+const EditorsView = ({
+  activeCollection,
+  resetActiveCollection,
+  isShowModal,
+  modalType,
+  showModal,
+}) => {
   let cardsEl;
   if (activeCollection.cards) {
     cardsEl = activeCollection.cards.map((card, index) => (
@@ -131,7 +141,7 @@ const EditorsView = ({ activeCollection, resetActiveCollection }) => {
       <StyledHeading>{activeCollection.title}</StyledHeading>
       <StyledCardsList>
         {cardsEl}
-        <EmptySlot small />
+        <EmptySlot small clicked={() => showModal('createCard')} />
       </StyledCardsList>
       <StyledControlsContainer>
         <Link to="/collections">
@@ -141,22 +151,35 @@ const EditorsView = ({ activeCollection, resetActiveCollection }) => {
           <Button icon="cancel" clicked={resetActiveCollection} />
         </Link>
       </StyledControlsContainer>
+      {isShowModal && <Modal type={modalType} />}
     </StyledWrapper>
   );
 };
 
 EditorsView.propTypes = {
   activeCollection: PropTypes.object.isRequired,
+  resetActiveCollection: PropTypes.func.isRequired,
+  isShowModal: PropTypes.bool.isRequired,
+  modalType: PropTypes.string,
+  showModal: PropTypes.func,
 };
 
-const mapStateToProps = ({ activeCollection }) => {
+EditorsView.defaultProps = {
+  modalType: null,
+  showModal: null,
+};
+
+const mapStateToProps = ({ activeCollection, isShowModal, modalType }) => {
   return {
     activeCollection,
+    isShowModal,
+    modalType,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   resetActiveCollection: () => dispatch(resetActiveCollectionAction()),
+  showModal: (modalType) => dispatch(showModalAction(modalType)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorsView);

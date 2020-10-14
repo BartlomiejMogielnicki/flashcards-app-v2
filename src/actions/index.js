@@ -108,3 +108,16 @@ export const resetActiveCollection = () => {
     type: 'RESET_ACTIVECOLLECTION',
   };
 };
+
+export const createCard = (userID, title, question, answer) => (dispatch) => {
+  dispatch({ type: 'CREATECARD_REQUEST' });
+  return axios
+    .post('http://localhost:3000/cards', { userID, title, question, answer })
+    .then((payload) => {
+      dispatch({ type: 'CREATECARD_SUCCESS', payload });
+      dispatch({ type: 'HIDE_MODAL' });
+    })
+    .catch((error) => {
+      dispatch({ type: 'CREATECARD_FAILURE', error });
+    });
+};

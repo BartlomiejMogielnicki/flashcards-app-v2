@@ -7,6 +7,7 @@ import {
   authenticate as authenticateAction,
   createAccount as createAccountAction,
   createCollection as createCollectionAction,
+  createCard as createCardAction,
 } from '../../../actions/index';
 
 import Button from '../../atoms/Button/Button';
@@ -87,7 +88,16 @@ const StyledErrorMessage = styled.p`
   font-weight: bold;
 `;
 
-const Modal = ({ modalType, hideModal, authenticate, createAccount, createCollection, userID }) => {
+const Modal = ({
+  modalType,
+  hideModal,
+  authenticate,
+  createAccount,
+  createCollection,
+  userID,
+  activeCollection,
+  createCard,
+}) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [nameError, setNameError] = useState(false);
@@ -98,7 +108,7 @@ const Modal = ({ modalType, hideModal, authenticate, createAccount, createCollec
     acceptButton = <Button>Login</Button>;
   } else if (modalType === 'register') {
     acceptButton = <Button>Register</Button>;
-  } else if (modalType === 'createCollection') {
+  } else if (modalType === 'createCollection' || modalType === 'createCard') {
     acceptButton = <Button>Create</Button>;
   } else if (modalType === 'delete') {
     acceptButton = <Button>Delete</Button>;
@@ -113,12 +123,15 @@ const Modal = ({ modalType, hideModal, authenticate, createAccount, createCollec
     if (password.length <= 0) {
       return setPasswordError(true);
     }
+    // REMEMBER TO CHANGE INPUTS NAMES TO BE MORE NEUTRAL!!!!!!!!!!!!!!!
     if (modalType === 'login') {
       authenticate(name, password);
     } else if (modalType === 'register') {
       createAccount(name, password);
     } else if (modalType === 'createCollection') {
       createCollection(userID, name);
+    } else if (modalType === 'createCard') {
+      createCard(userID, activeCollection.title, name, password);
     }
   };
 
@@ -171,16 +184,24 @@ Modal.propTypes = {
   hideModal: PropTypes.func,
   authenticate: PropTypes.func,
   createAccount: PropTypes.func,
+  createCollection: PropTypes.func,
+  userID: PropTypes.string,
+  activeCollection: PropTypes.object,
+  createCard: PropTypes.func,
 };
 
 Modal.defaultProps = {
   hideModal: null,
   authenticate: null,
   createAccount: null,
+  createCollection: null,
+  userID: null,
+  activeCollection: null,
+  createCard: null,
 };
 
-const mapStateToProps = ({ modalType, userID }) => {
-  return { modalType, userID };
+const mapStateToProps = ({ modalType, userID, activeCollection }) => {
+  return { modalType, userID, activeCollection };
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -188,6 +209,8 @@ const mapDispatchToProps = (dispatch) => ({
   authenticate: (username, password) => dispatch(authenticateAction(username, password)),
   createAccount: (username, password) => dispatch(createAccountAction(username, password)),
   createCollection: (userID, title) => dispatch(createCollectionAction(userID, title)),
+  createCard: (userID, title, question, answer) =>
+    dispatch(createCardAction(userID, title, question, answer)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);

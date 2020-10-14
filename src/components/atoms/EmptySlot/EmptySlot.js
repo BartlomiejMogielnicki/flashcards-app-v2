@@ -81,11 +81,12 @@ const EmptySlot = ({ clicked, small }) => (
 );
 
 EmptySlot.propTypes = {
-  clicked: PropTypes.func.isRequired,
+  clicked: PropTypes.func,
   small: PropTypes.bool,
 };
 
 EmptySlot.defaultProps = {
+  clicked: null,
   small: false,
 };
 
