@@ -7,6 +7,7 @@ import MainTemplate from '../templates/MainTemplate';
 import StartView from './StartView';
 import CollectionsView from './CollectionsView';
 import EditorsView from './EditorsView';
+import PracticeView from './PracticeView';
 
 const Root = () => (
   <Provider store={store}>
@@ -16,6 +17,7 @@ const Root = () => (
           <Route exact path="/" component={StartView} />
           <Route exact path="/collections" component={CollectionsView} />
           <Route path="/edit" component={EditorsView} />
+          <Route path="/practice" component={PracticeView} />
         </Switch>
       </MainTemplate>
     </BrowserRouter>

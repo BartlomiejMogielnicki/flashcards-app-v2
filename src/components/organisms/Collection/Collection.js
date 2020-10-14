@@ -64,7 +64,7 @@ const Collection = ({ title, cards, id, setActiveCollection, deleteCollection })
           <Button icon="play" disabled />
         ) : (
           <Link to="/practice">
-            <Button icon="play" />
+            <Button icon="play" clicked={() => setActiveCollection(title, cards)} />
           </Link>
         )}
         <Link to="/edit">

@@ -8,9 +8,9 @@ const icons = {
   delete: <i className="fas fa-trash" />,
   apply: <i className="fas fa-check" />,
   cancel: <i className="fas fa-times" />,
-  // leftArrow: <i className="fas fa-arrow-left" />,
-  // rightArrow: <i className="fas fa-arrow-right" />,
-  // random: <i className="fas fa-random" />,
+  leftArrow: <i className="fas fa-arrow-left" />,
+  rightArrow: <i className="fas fa-arrow-right" />,
+  random: <i className="fas fa-random" />,
   // plus: <i className="fas fa-plus" />,
   // home: <i className="fas fa-home" />,
 };
