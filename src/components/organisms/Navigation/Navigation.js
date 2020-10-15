@@ -26,12 +26,22 @@ const StyledNavWrapper = styled.div`
   }
 `;
 
-const StyledLinksList = styled.div`
+const StyledUserContainer = styled.div`
   margin-right: 50px;
   height: 100%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+`;
+
+const StyledUserInfo = styled.div`
+  margin-right: 20px;
+  display: flex;
+  color: white;
+
+  i {
+    margin-right: 5px;
+  }
 `;
 
 const StyledLogoContainer = styled.div`
@@ -63,25 +73,28 @@ const StyledLetters = styled.div`
   }
 `;
 
-const Navigation = ({ logout }) => {
+const Navigation = ({ userName, logout }) => {
   const lerrersEl = letters.map((letter, index) => (
     <StyledLetters key={index}>{letter}</StyledLetters>
   ));
   return (
     <StyledNavWrapper>
       <StyledLogoContainer>{lerrersEl}</StyledLogoContainer>
-      <StyledLinksList>
-        <li>
-          <Link to="/">
-            <Button clicked={logout}>Logout</Button>
-          </Link>
-        </li>
-      </StyledLinksList>
+      <StyledUserContainer>
+        <StyledUserInfo>
+          <i className="fas fa-user" />
+          <p>{userName}</p>
+        </StyledUserInfo>
+        <Link to="/">
+          <Button clicked={logout}>Logout</Button>
+        </Link>
+      </StyledUserContainer>
     </StyledNavWrapper>
   );
 };
 
 Navigation.propTypes = {
+  userName: PropTypes.string.isRequired,
   logout: PropTypes.func,
 };
 
@@ -89,8 +102,8 @@ Navigation.defaultProps = {
   logout: null,
 };
 
-const mapStateToProps = ({ userID, userCollections }) => {
-  return { userID, userCollections };
+const mapStateToProps = ({ userName }) => {
+  return { userName };
 };
 
 const mapDispatchToProps = (dispatch) => ({
