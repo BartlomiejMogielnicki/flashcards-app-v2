@@ -98,48 +98,66 @@ const Modal = ({
   activeCollection,
   createCard,
 }) => {
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [nameError, setNameError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
+  const [input1Error, setInput1Error] = useState(false);
+  const [input2Error, setInput2Error] = useState(false);
 
   let acceptButton;
+  let label1 = 'Login';
+  let label2 = 'Password';
+  let label1Placeholder = 'Enter a login...';
+  let label2Placeholder = 'Enter a password...';
+  let input1ErrorText = 'Login is invalid';
+  let input2ErrorText = 'Password is invalid';
   if (modalType === 'login') {
     acceptButton = <Button>Login</Button>;
   } else if (modalType === 'register') {
     acceptButton = <Button>Register</Button>;
-  } else if (modalType === 'createCollection' || modalType === 'createCard') {
+  } else if (modalType === 'createCollection') {
     acceptButton = <Button>Create</Button>;
+    label1 = 'Name';
+    label1Placeholder = 'Enter collection name...';
+    input1ErrorText = 'Please enter collection name';
+  } else if (modalType === 'createCard') {
+    acceptButton = <Button>Create</Button>;
+    label1 = 'Question';
+    label2 = 'Answer';
+    label1Placeholder = 'Enter a question...';
+    label2Placeholder = 'Enter an answer...';
+    input1ErrorText = 'Please enter a question';
+    input2ErrorText = 'Please enter an answer';
   } else if (modalType === 'delete') {
     acceptButton = <Button>Delete</Button>;
   }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    if (input1.length <= 0) {
+      return setInput1Error(true);
+    }
+    setInput1Error(false);
+    if (input2.length <= 0) {
+      return setInput2Error(true);
+    }
+    setInput2Error(false);
 
-    if (name.length <= 0) {
-      return setNameError(true);
-    }
-    if (password.length <= 0) {
-      return setPasswordError(true);
-    }
-    // REMEMBER TO CHANGE INPUTS NAMES TO BE MORE NEUTRAL!!!!!!!!!!!!!!!
     if (modalType === 'login') {
-      authenticate(name, password);
+      authenticate(input1, input2);
     } else if (modalType === 'register') {
-      createAccount(name, password);
+      createAccount(input1, input2);
     } else if (modalType === 'createCollection') {
-      createCollection(userID, name);
+      createCollection(userID, input1);
     } else if (modalType === 'createCard') {
-      createCard(userID, activeCollection.title, name, password);
+      createCard(userID, activeCollection.title, input1, input2);
     }
   };
 
   const handleInputControl = (e, type) => {
-    if (type === 'name') {
-      setName(e.target.value);
-    } else if (type === 'password') {
-      setPassword(e.target.value);
+    if (type === 'input1') {
+      setInput1(e.target.value);
+    } else if (type === 'input2') {
+      setInput2(e.target.value);
     }
   };
 
@@ -148,26 +166,28 @@ const Modal = ({
       <StyledForm onSubmit={(e) => handleFormSubmit(e)}>
         <StyledInputContainer>
           <label>
-            Login:
+            {label1}
             <Input
               type="text"
-              placeholder="Enter a login..."
-              value={name}
-              onChange={(e) => handleInputControl(e, 'name')}
+              placeholder={label1Placeholder}
+              value={input1}
+              onChange={(e) => handleInputControl(e, 'input1')}
               autoFocus
             />
-            {nameError && <StyledErrorMessage>Login is invalid</StyledErrorMessage>}
+            {input1Error && <StyledErrorMessage>{input1ErrorText}</StyledErrorMessage>}
           </label>
-          <label>
-            Password:
-            <Input
-              type="text"
-              placeholder="Enter a password..."
-              value={password}
-              onChange={(e) => handleInputControl(e, 'password')}
-            />
-            {passwordError && <StyledErrorMessage>Password is invalid</StyledErrorMessage>}
-          </label>
+          {modalType !== 'createCollection' && (
+            <label>
+              {label2}
+              <Input
+                type="text"
+                placeholder={label2Placeholder}
+                value={input2}
+                onChange={(e) => handleInputControl(e, 'input2')}
+              />
+              {input2Error && <StyledErrorMessage>{input2ErrorText}</StyledErrorMessage>}
+            </label>
+          )}
         </StyledInputContainer>
         <StyledButtonContainer>
           {acceptButton}
