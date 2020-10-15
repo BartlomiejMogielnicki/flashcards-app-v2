@@ -138,3 +138,19 @@ export const deleteCard = (collectionTitle, id) => (dispatch) => {
       dispatch({ type: 'DELETECARD_FAILURE', error });
     });
 };
+
+export const changeCard = (direction) => {
+  let changeNum;
+  if (direction === 'right') {
+    changeNum = 1;
+  } else if (direction === 'left') {
+    changeNum = -1;
+  }
+  return {
+    type: 'CHANGE_CARD',
+    payload: {
+      changeNum,
+      direction,
+    },
+  };
+};

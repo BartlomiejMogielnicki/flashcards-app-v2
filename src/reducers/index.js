@@ -90,6 +90,12 @@ const rootReducer = (state = initialState, action) => {
           ],
         },
       };
+    case 'CHANGE_CARD':
+      return {
+        ...state,
+        activeCard: state.activeCard + action.payload.changeNum,
+        swapDirection: action.payload.direction,
+      };
     default:
       return state;
   }

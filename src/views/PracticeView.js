@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import Button from '../components/atoms/Button/Button';
 import CardsCarousel from '../components/organisms/CardsCarousel/CardsCarousel';
 import keysImage from '../assets/images/keys.png';
+
+import { changeCard as changeCardAction } from '../actions/index';
 
 const StyledWrapper = styled.div`
   perspective: 1000px;
@@ -80,7 +83,7 @@ const StyledInfo = styled.div`
   }
 `;
 
-const PracticeView = ({ activeCollection, activeCard }) => {
+const PracticeView = ({ activeCollection, activeCard, changeCard }) => {
   const cardsNum = activeCollection.cards.length;
   return (
     <StyledWrapper>
@@ -88,11 +91,15 @@ const PracticeView = ({ activeCollection, activeCard }) => {
       <CardsCarousel />
       <StyledButtonsContainer>
         <StyledArrowsContainer>
-          <Button disabled={activeCard === 0} icon="leftArrow" />
+          <Button disabled={activeCard === 0} icon="leftArrow" clicked={() => changeCard('left')} />
           <StyledParagraph>
             {activeCard + 1} / {cardsNum}
           </StyledParagraph>
-          <Button disabled={activeCard + 1 === cardsNum} icon="rightArrow" />
+          <Button
+            disabled={activeCard + 1 === cardsNum}
+            icon="rightArrow"
+            clicked={() => changeCard('right')}
+          />
         </StyledArrowsContainer>
         <div>
           <Button disabled={cardsNum === 1} icon="random" />
@@ -112,6 +119,7 @@ const PracticeView = ({ activeCollection, activeCard }) => {
 PracticeView.propTypes = {
   activeCollection: PropTypes.object.isRequired,
   activeCard: PropTypes.number.isRequired,
+  changeCard: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ activeCollection, activeCard }) => {
@@ -121,4 +129,8 @@ const mapStateToProps = ({ activeCollection, activeCard }) => {
   };
 };
 
-export default connect(mapStateToProps)(PracticeView);
+const mapDispatchToProps = (dispatch) => ({
+  changeCard: (direction) => dispatch(changeCardAction(direction)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PracticeView);
