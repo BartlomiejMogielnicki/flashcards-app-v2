@@ -68,7 +68,10 @@ const Collection = ({ title, cards, id, setActiveCollection, deleteCollection })
           </Link>
         )}
         <Link to="/edit">
-          <Button icon="edit" clicked={() => setActiveCollection(title, cards)} />
+          <Button
+            icon={cards.length === 0 ? 'plus' : 'edit'}
+            clicked={() => setActiveCollection(title, cards)}
+          />
         </Link>
         <Button icon="delete" clicked={() => deleteCollection(id)} />
       </StyledButtonsContainer>

@@ -137,7 +137,7 @@ const Modal = ({
       return setInput1Error(true);
     }
     setInput1Error(false);
-    if (input2.length <= 0) {
+    if (input2.length <= 0 && modalType !== 'createCollection') {
       return setInput2Error(true);
     }
     setInput2Error(false);

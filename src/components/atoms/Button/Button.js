@@ -11,7 +11,7 @@ const icons = {
   leftArrow: <i className="fas fa-arrow-left" />,
   rightArrow: <i className="fas fa-arrow-right" />,
   random: <i className="fas fa-random" />,
-  // plus: <i className="fas fa-plus" />,
+  plus: <i className="fas fa-plus" />,
   home: <i className="fas fa-home" />,
 };
 

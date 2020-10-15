@@ -149,10 +149,7 @@ const EditorsView = ({
       </StyledCardsList>
       <StyledControlsContainer>
         <Link to="/collections">
-          <Button icon="apply" clicked={resetActiveCollection} />
-        </Link>
-        <Link to="/collections">
-          <Button icon="cancel" clicked={resetActiveCollection} />
+          <Button icon="home" clicked={resetActiveCollection} />
         </Link>
       </StyledControlsContainer>
       {isShowModal && <Modal type={modalType} />}
