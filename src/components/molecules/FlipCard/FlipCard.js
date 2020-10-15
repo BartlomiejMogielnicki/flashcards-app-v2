@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -99,6 +99,19 @@ const StyledCardContainer = styled.div`
 
 const FlipCard = ({ card, cardLeft, cardRight, swapDirection }) => {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 38 || e.keyCode === 40) {
+      setIsFlipped(!isFlipped);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+    return function cleanup() {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  });
 
   const cardLeftEl = (
     <StyledCardContainer

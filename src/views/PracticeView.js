@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -85,6 +85,24 @@ const StyledInfo = styled.div`
 
 const PracticeView = ({ activeCollection, activeCard, changeCard, randomCard }) => {
   const cardsNum = activeCollection.cards.length;
+
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 39 && activeCard !== cardsNum - 1) {
+      changeCard('right');
+    } else if (e.keyCode === 37 && activeCard !== 0) {
+      changeCard('left');
+    } else if (e.keyCode === 17) {
+      randomCard(cardsNum, activeCard);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+    return function cleanup() {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  });
+
   return (
     <StyledWrapper>
       <StyledHeading>{activeCollection.title}</StyledHeading>
