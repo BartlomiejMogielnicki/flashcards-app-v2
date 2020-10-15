@@ -10,6 +10,7 @@ import cardsImage from '../../../assets/images/cards.png';
 import {
   setActiveCollection as setActiveCollectionAction,
   deleteCollection as deleteCollectionAction,
+  showModal as showModalAction,
 } from '../../../actions';
 
 const StyledWrapper = styled.div`
@@ -49,7 +50,7 @@ const StyledButtonsContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-const Collection = ({ title, cards, id, setActiveCollection, deleteCollection }) => {
+const Collection = ({ title, cards, id, setActiveCollection, showModal }) => {
   return (
     <StyledWrapper>
       <div>
@@ -73,7 +74,7 @@ const Collection = ({ title, cards, id, setActiveCollection, deleteCollection })
             clicked={() => setActiveCollection(title, cards)}
           />
         </Link>
-        <Button icon="delete" clicked={() => deleteCollection(id)} />
+        <Button icon="delete" clicked={() => showModal('delete', id)} />
       </StyledButtonsContainer>
     </StyledWrapper>
   );
@@ -83,7 +84,7 @@ Collection.propTypes = {
   cards: PropTypes.array.isRequired,
   id: PropTypes.string.isRequired,
   setActiveCollection: PropTypes.func,
-  deleteCollection: PropTypes.func.isRequired,
+  showModal: PropTypes.func.isRequired,
 };
 
 Collection.defaultProps = {
@@ -93,6 +94,7 @@ Collection.defaultProps = {
 const mapDispatchToProps = (dispatch) => ({
   setActiveCollection: (title, cards) => dispatch(setActiveCollectionAction(title, cards)),
   deleteCollection: (id) => dispatch(deleteCollectionAction(id)),
+  showModal: (modalType, id) => dispatch(showModalAction(modalType, id)),
 });
 
 export default connect(null, mapDispatchToProps)(Collection);

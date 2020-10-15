@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-export const showModal = (modalType) => {
+export const showModal = (modalType, collectionID) => {
   return {
     type: 'SHOW_MODAL',
     payload: {
       modalType,
+      collectionID,
     },
   };
 };

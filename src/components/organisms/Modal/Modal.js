@@ -8,6 +8,7 @@ import {
   createAccount as createAccountAction,
   createCollection as createCollectionAction,
   createCard as createCardAction,
+  deleteCollection as deleteCollectionAction,
 } from '../../../actions/index';
 
 import Button from '../../atoms/Button/Button';
@@ -97,13 +98,15 @@ const Modal = ({
   userID,
   activeCollection,
   createCard,
+  collectionID,
+  deleteCollection,
 }) => {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
   const [input1Error, setInput1Error] = useState(false);
   const [input2Error, setInput2Error] = useState(false);
 
-  let acceptButton;
+  let title;
   let label1 = 'Login';
   let label2 = 'Password';
   let label1Placeholder = 'Enter a login...';
@@ -111,16 +114,16 @@ const Modal = ({
   let input1ErrorText = 'Login is invalid';
   let input2ErrorText = 'Password is invalid';
   if (modalType === 'login') {
-    acceptButton = <Button>Login</Button>;
+    title = 'Login user';
   } else if (modalType === 'register') {
-    acceptButton = <Button>Register</Button>;
+    title = 'Register new user';
   } else if (modalType === 'createCollection') {
-    acceptButton = <Button>Create</Button>;
+    title = 'Create new collection';
     label1 = 'Name';
     label1Placeholder = 'Enter collection name...';
     input1ErrorText = 'Please enter collection name';
   } else if (modalType === 'createCard') {
-    acceptButton = <Button>Create</Button>;
+    title = 'Create new card';
     label1 = 'Question';
     label2 = 'Answer';
     label1Placeholder = 'Enter a question...';
@@ -128,16 +131,16 @@ const Modal = ({
     input1ErrorText = 'Please enter a question';
     input2ErrorText = 'Please enter an answer';
   } else if (modalType === 'delete') {
-    acceptButton = <Button>Delete</Button>;
+    title = 'Are you sure?';
   }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (input1.length <= 0) {
+    if (input1.length <= 0 && modalType !== 'delete') {
       return setInput1Error(true);
     }
     setInput1Error(false);
-    if (input2.length <= 0 && modalType !== 'createCollection') {
+    if (input2.length <= 0 && modalType !== 'createCollection' && modalType !== 'delete') {
       return setInput2Error(true);
     }
     setInput2Error(false);
@@ -150,6 +153,8 @@ const Modal = ({
       createCollection(userID, input1);
     } else if (modalType === 'createCard') {
       createCard(userID, activeCollection.title, input1, input2);
+    } else if (modalType === 'delete') {
+      deleteCollection(collectionID);
     }
   };
 
@@ -164,34 +169,38 @@ const Modal = ({
   return (
     <StyledWrapper>
       <StyledForm onSubmit={(e) => handleFormSubmit(e)}>
-        <StyledInputContainer>
-          <label>
-            {label1}
-            <Input
-              type="text"
-              placeholder={label1Placeholder}
-              value={input1}
-              onChange={(e) => handleInputControl(e, 'input1')}
-              autoFocus
-            />
-            {input1Error && <StyledErrorMessage>{input1ErrorText}</StyledErrorMessage>}
-          </label>
-          {modalType !== 'createCollection' && (
+        <h2>{title}</h2>
+        {modalType !== 'delete' && (
+          <StyledInputContainer>
             <label>
-              {label2}
+              {label1}
               <Input
                 type="text"
-                placeholder={label2Placeholder}
-                value={input2}
-                onChange={(e) => handleInputControl(e, 'input2')}
+                placeholder={label1Placeholder}
+                value={input1}
+                onChange={(e) => handleInputControl(e, 'input1')}
+                autoFocus
               />
-              {input2Error && <StyledErrorMessage>{input2ErrorText}</StyledErrorMessage>}
+              {input1Error && <StyledErrorMessage>{input1ErrorText}</StyledErrorMessage>}
             </label>
-          )}
-        </StyledInputContainer>
+            {modalType !== 'createCollection' && (
+              <label>
+                {label2}
+                <Input
+                  type="text"
+                  placeholder={label2Placeholder}
+                  value={input2}
+                  onChange={(e) => handleInputControl(e, 'input2')}
+                />
+                {input2Error && <StyledErrorMessage>{input2ErrorText}</StyledErrorMessage>}
+              </label>
+            )}
+          </StyledInputContainer>
+        )}
+
         <StyledButtonContainer>
-          {acceptButton}
-          <Button clicked={hideModal}>Cancel</Button>
+          <Button icon="apply" />
+          <Button icon="cancel" clicked={hideModal} />
         </StyledButtonContainer>
       </StyledForm>
     </StyledWrapper>
@@ -207,6 +216,8 @@ Modal.propTypes = {
   userID: PropTypes.string,
   activeCollection: PropTypes.object,
   createCard: PropTypes.func,
+  collectionID: PropTypes.string,
+  deleteCollection: PropTypes.func.isRequired,
 };
 
 Modal.defaultProps = {
@@ -217,10 +228,11 @@ Modal.defaultProps = {
   userID: null,
   activeCollection: null,
   createCard: null,
+  collectionID: null,
 };
 
-const mapStateToProps = ({ modalType, userID, activeCollection }) => {
-  return { modalType, userID, activeCollection };
+const mapStateToProps = ({ modalType, userID, activeCollection, collectionID }) => {
+  return { modalType, userID, activeCollection, collectionID };
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -230,6 +242,7 @@ const mapDispatchToProps = (dispatch) => ({
   createCollection: (userID, title) => dispatch(createCollectionAction(userID, title)),
   createCard: (userID, title, question, answer) =>
     dispatch(createCardAction(userID, title, question, answer)),
+  deleteCollection: (id) => dispatch(deleteCollectionAction(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);

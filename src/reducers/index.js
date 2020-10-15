@@ -15,6 +15,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         isShowModal: !state.isShowModal,
         modalType: action.payload.modalType,
+        collectionID: action.payload.collectionID,
       };
     case 'HIDE_MODAL':
       return {
@@ -72,6 +73,9 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         userCollections: action.payload.data.collections,
+        collectionID: '',
+        isShowModal: false,
+        modalType: '',
       };
     case 'CREATECARD_SUCCESS':
       return {
