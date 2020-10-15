@@ -7,7 +7,7 @@ import Button from '../components/atoms/Button/Button';
 import CardsCarousel from '../components/organisms/CardsCarousel/CardsCarousel';
 import keysImage from '../assets/images/keys.png';
 
-import { changeCard as changeCardAction } from '../actions/index';
+import { changeCard as changeCardAction, randomCard as randomCardAction } from '../actions/index';
 
 const StyledWrapper = styled.div`
   perspective: 1000px;
@@ -83,7 +83,7 @@ const StyledInfo = styled.div`
   }
 `;
 
-const PracticeView = ({ activeCollection, activeCard, changeCard }) => {
+const PracticeView = ({ activeCollection, activeCard, changeCard, randomCard }) => {
   const cardsNum = activeCollection.cards.length;
   return (
     <StyledWrapper>
@@ -102,7 +102,11 @@ const PracticeView = ({ activeCollection, activeCard, changeCard }) => {
           />
         </StyledArrowsContainer>
         <div>
-          <Button disabled={cardsNum === 1} icon="random" />
+          <Button
+            disabled={cardsNum === 1}
+            icon="random"
+            clicked={() => randomCard(cardsNum, activeCard)}
+          />
         </div>
       </StyledButtonsContainer>
       <StyledInfo>
@@ -120,6 +124,7 @@ PracticeView.propTypes = {
   activeCollection: PropTypes.object.isRequired,
   activeCard: PropTypes.number.isRequired,
   changeCard: PropTypes.func.isRequired,
+  randomCard: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ activeCollection, activeCard }) => {
@@ -131,6 +136,7 @@ const mapStateToProps = ({ activeCollection, activeCard }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   changeCard: (direction) => dispatch(changeCardAction(direction)),
+  randomCard: (cardsNum, activeCard) => dispatch(randomCardAction(cardsNum, activeCard)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PracticeView);

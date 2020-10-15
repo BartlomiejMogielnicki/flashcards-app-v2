@@ -26,10 +26,12 @@ const StartView = ({ isShowModal, modalType, showModal, userID }) => {
 StartView.propTypes = {
   isShowModal: PropTypes.bool.isRequired,
   showModal: PropTypes.func.isRequired,
+  modalType: PropTypes.string,
   userID: PropTypes.string,
 };
 
 StartView.defaultProps = {
+  modalType: null,
   userID: null,
 };
 

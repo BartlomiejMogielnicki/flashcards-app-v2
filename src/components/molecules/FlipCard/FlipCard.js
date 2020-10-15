@@ -100,7 +100,6 @@ const StyledCardContainer = styled.div`
 const FlipCard = ({ card, cardLeft, cardRight, swapDirection }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // REMEMBER TO ADD KEYBOARD EVENTS HANDLERS!!!!!!!!!!!!!!!
   const cardLeftEl = (
     <StyledCardContainer
       className={`${isFlipped ? 'flipped' : ''} 

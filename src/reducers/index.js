@@ -96,6 +96,12 @@ const rootReducer = (state = initialState, action) => {
         activeCard: state.activeCard + action.payload.changeNum,
         swapDirection: action.payload.direction,
       };
+    case 'RANDOM_CARD':
+      return {
+        ...state,
+        activeCard: action.payload.setCard,
+        swapDirection: action.payload.direction,
+      };
     default:
       return state;
   }

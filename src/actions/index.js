@@ -146,10 +146,32 @@ export const changeCard = (direction) => {
   } else if (direction === 'left') {
     changeNum = -1;
   }
+
   return {
     type: 'CHANGE_CARD',
     payload: {
       changeNum,
+      direction,
+    },
+  };
+};
+
+export const randomCard = (cardsNum, activeCard) => {
+  let setCard;
+  do setCard = Math.floor(Math.random() * cardsNum);
+  while (setCard === activeCard);
+
+  let direction;
+  if (setCard < activeCard) {
+    direction = 'left';
+  } else {
+    direction = 'right';
+  }
+
+  return {
+    type: 'RANDOM_CARD',
+    payload: {
+      setCard,
       direction,
     },
   };
