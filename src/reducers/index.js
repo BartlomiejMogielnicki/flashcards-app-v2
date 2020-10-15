@@ -34,6 +34,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         userID: '',
+        userName: '',
         userCollections: [],
         activeCollection: {},
       };
@@ -103,6 +104,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         activeCard: action.payload.setCard,
         swapDirection: action.payload.direction,
+      };
+    case 'RESET_CARD':
+      return {
+        ...state,
+        activeCard: 0,
       };
     default:
       return state;

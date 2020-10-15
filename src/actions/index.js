@@ -176,3 +176,9 @@ export const randomCard = (cardsNum, activeCard) => {
     },
   };
 };
+
+export const resetCard = () => {
+  return {
+    type: 'RESET_CARD',
+  };
+};

@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Button from '../components/atoms/Button/Button';
 import CardsCarousel from '../components/organisms/CardsCarousel/CardsCarousel';
 import keysImage from '../assets/images/keys.png';
 
-import { changeCard as changeCardAction, randomCard as randomCardAction } from '../actions/index';
+import {
+  changeCard as changeCardAction,
+  randomCard as randomCardAction,
+  resetCard as resetCardAction,
+} from '../actions/index';
 
 const StyledWrapper = styled.div`
   perspective: 1000px;
@@ -83,7 +88,7 @@ const StyledInfo = styled.div`
   }
 `;
 
-const PracticeView = ({ activeCollection, activeCard, changeCard, randomCard }) => {
+const PracticeView = ({ activeCollection, activeCard, changeCard, randomCard, resetCard }) => {
   const cardsNum = activeCollection.cards.length;
 
   const handleKeyPress = (e) => {
@@ -126,6 +131,9 @@ const PracticeView = ({ activeCollection, activeCard, changeCard, randomCard }) 
             clicked={() => randomCard(cardsNum, activeCard)}
           />
         </div>
+        <Link to="/collections">
+          <Button icon="home" clicked={resetCard} />
+        </Link>
       </StyledButtonsContainer>
       <StyledInfo>
         <p>
@@ -143,6 +151,7 @@ PracticeView.propTypes = {
   activeCard: PropTypes.number.isRequired,
   changeCard: PropTypes.func.isRequired,
   randomCard: PropTypes.func.isRequired,
+  resetCard: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ activeCollection, activeCard }) => {
@@ -155,6 +164,7 @@ const mapStateToProps = ({ activeCollection, activeCard }) => {
 const mapDispatchToProps = (dispatch) => ({
   changeCard: (direction) => dispatch(changeCardAction(direction)),
   randomCard: (cardsNum, activeCard) => dispatch(randomCardAction(cardsNum, activeCard)),
+  resetCard: () => dispatch(resetCardAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PracticeView);
