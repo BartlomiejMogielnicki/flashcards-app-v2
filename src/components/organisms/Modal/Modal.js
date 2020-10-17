@@ -25,7 +25,7 @@ const flipIn = keyframes`
 `;
 
 const StyledWrapper = styled.div`
-  width: 330px;
+  width: 350px;
   height: 280px;
   padding: 10px;
   position: absolute;
@@ -66,14 +66,18 @@ const StyledForm = styled.form`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   animation: ${showIn} 0.2s linear forwards;
 `;
 
-const StyledInputContainer = styled.div`
+const StyledInputsContainer = styled.div`
   margin: 0 auto;
   min-height: 80px;
+`;
+
+const StyledInputSection = styled.div`
+  min-height: 85px;
 `;
 
 const StyledButtonContainer = styled.div`
@@ -100,6 +104,7 @@ const Modal = ({
   createCard,
   collectionID,
   deleteCollection,
+  authPasswordError,
 }) => {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
@@ -111,8 +116,8 @@ const Modal = ({
   let label2 = 'Password';
   let label1Placeholder = 'Enter a login...';
   let label2Placeholder = 'Enter a password...';
-  let input1ErrorText = 'Login is invalid';
-  let input2ErrorText = 'Password is invalid';
+  let input1ErrorText = 'Please enter a login';
+  let input2ErrorText = 'Please enter a password';
   if (modalType === 'login') {
     title = 'Login user';
   } else if (modalType === 'register') {
@@ -171,31 +176,41 @@ const Modal = ({
       <StyledForm onSubmit={(e) => handleFormSubmit(e)}>
         <h2>{title}</h2>
         {modalType !== 'delete' && (
-          <StyledInputContainer>
-            <label>
-              {label1}
-              <Input
-                type="text"
-                placeholder={label1Placeholder}
-                value={input1}
-                onChange={(e) => handleInputControl(e, 'input1')}
-                autoFocus
-              />
-              {input1Error && <StyledErrorMessage>{input1ErrorText}</StyledErrorMessage>}
-            </label>
-            {modalType !== 'createCollection' && (
+          <StyledInputsContainer>
+            <StyledInputSection>
               <label>
-                {label2}
+                {label1}
                 <Input
                   type="text"
-                  placeholder={label2Placeholder}
-                  value={input2}
-                  onChange={(e) => handleInputControl(e, 'input2')}
+                  placeholder={label1Placeholder}
+                  value={input1}
+                  onChange={(e) => handleInputControl(e, 'input1')}
+                  autoFocus
                 />
-                {input2Error && <StyledErrorMessage>{input2ErrorText}</StyledErrorMessage>}
+                {input1Error && <StyledErrorMessage>{input1ErrorText}</StyledErrorMessage>}
+                {authPasswordError && (
+                  <StyledErrorMessage>Invalid login or password</StyledErrorMessage>
+                )}
               </label>
+            </StyledInputSection>
+            {modalType !== 'createCollection' && (
+              <StyledInputSection>
+                <label>
+                  {label2}
+                  <Input
+                    type="text"
+                    placeholder={label2Placeholder}
+                    value={input2}
+                    onChange={(e) => handleInputControl(e, 'input2')}
+                  />
+                  {input2Error && <StyledErrorMessage>{input2ErrorText}</StyledErrorMessage>}
+                  {authPasswordError && (
+                    <StyledErrorMessage>Invalid login or password</StyledErrorMessage>
+                  )}
+                </label>
+              </StyledInputSection>
             )}
-          </StyledInputContainer>
+          </StyledInputsContainer>
         )}
 
         <StyledButtonContainer>
@@ -218,6 +233,7 @@ Modal.propTypes = {
   createCard: PropTypes.func,
   collectionID: PropTypes.string,
   deleteCollection: PropTypes.func.isRequired,
+  authPasswordError: PropTypes.bool,
 };
 
 Modal.defaultProps = {
@@ -229,10 +245,17 @@ Modal.defaultProps = {
   activeCollection: null,
   createCard: null,
   collectionID: null,
+  authPasswordError: false,
 };
 
-const mapStateToProps = ({ modalType, userID, activeCollection, collectionID }) => {
-  return { modalType, userID, activeCollection, collectionID };
+const mapStateToProps = ({
+  modalType,
+  userID,
+  activeCollection,
+  collectionID,
+  authPasswordError,
+}) => {
+  return { modalType, userID, activeCollection, collectionID, authPasswordError };
 };
 
 const mapDispatchToProps = (dispatch) => ({

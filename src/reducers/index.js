@@ -3,9 +3,6 @@ const initialState = {
   modalType: '',
   activeCard: 0,
   swapDirection: 'right',
-  // userID and userName for tests - remember to delete!
-  userID: '5f804e65b5343724f459dc00',
-  userName: 'User4',
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -30,6 +27,12 @@ const rootReducer = (state = initialState, action) => {
         modalType: '',
         userID: action.payload.data.user._id,
         userName: action.payload.data.user.name,
+        authPasswordError: false,
+      };
+    case 'AUTHENTICATION_FAILURE':
+      return {
+        ...state,
+        authPasswordError: true,
       };
     case 'LOGOUT':
       return {
