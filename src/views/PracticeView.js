@@ -33,7 +33,7 @@ const StyledWrapper = styled.div`
 
 const StyledHeading = styled.h2`
   font-size: 1.8rem;
-  color: #222;
+  color: ${({ theme }) => theme.tertiaryColor};
   letter-spacing: 2px;
 
   @media (max-height: 600px) {
@@ -53,7 +53,8 @@ const StyledButtonsContainer = styled.div`
 `;
 
 const StyledParagraph = styled.p`
-  color: #222;
+  color: ${({ theme }) => theme.tertiaryColor};
+  font-weight: bold;
 `;
 
 const StyledArrowsContainer = styled.div`

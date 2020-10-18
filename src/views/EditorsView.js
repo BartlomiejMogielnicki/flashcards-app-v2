@@ -29,7 +29,7 @@ const StyledWrapper = styled.div`
 
 const StyledHeading = styled.h2`
   margin-bottom: 10px;
-  color: #222;
+  color: ${({ theme }) => theme.tertiaryColor};
   text-align: center;
 
   @media (max-height: 600px) {
