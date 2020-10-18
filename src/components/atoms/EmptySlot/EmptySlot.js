@@ -89,8 +89,12 @@ const StyledSlotContent = styled.div`
   }
 `;
 
-const EmptySlot = ({ clicked, small, isShowModal }) => (
-  <StyledWrapper active={isShowModal} small={small} onClick={clicked}>
+const EmptySlot = ({ clicked, small, isShowModal, modalType }) => (
+  <StyledWrapper
+    active={(isShowModal && modalType === 'createCollection') || modalType === 'createCard'}
+    small={small}
+    onClick={clicked}
+  >
     <StyledSlotContent small={small} />
   </StyledWrapper>
 );
@@ -99,6 +103,7 @@ EmptySlot.propTypes = {
   clicked: PropTypes.func,
   small: PropTypes.bool,
   isShowModal: PropTypes.bool.isRequired,
+  modalType: PropTypes.string.isRequired,
 };
 
 EmptySlot.defaultProps = {
@@ -106,9 +111,10 @@ EmptySlot.defaultProps = {
   small: false,
 };
 
-const mapStateToProps = ({ isShowModal }) => {
+const mapStateToProps = ({ isShowModal, modalType }) => {
   return {
     isShowModal,
+    modalType,
   };
 };
 
