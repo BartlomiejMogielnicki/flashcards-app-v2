@@ -51,8 +51,15 @@ const StyledButton = styled.button`
       }
     `}
 
+  ${({ white }) =>
+    white &&
+    css`
+      background-color: white;
+      color: #222;
+    `}
+
   &:disabled {
-    background-color: #555;
+    background-color: #888;
 
     &:hover {
       color: #ddd;
@@ -61,9 +68,9 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ icon, children, clicked, disabled, big, logout }) => {
+const Button = ({ icon, children, clicked, disabled, big, logout, white }) => {
   return (
-    <StyledButton disabled={disabled} onClick={clicked} big={big} logout={logout}>
+    <StyledButton disabled={disabled} onClick={clicked} big={big} logout={logout} white={white}>
       {children} {icons[icon]}
     </StyledButton>
   );
@@ -76,6 +83,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   big: PropTypes.bool,
   logout: PropTypes.bool,
+  white: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -85,6 +93,7 @@ Button.defaultProps = {
   disabled: false,
   big: false,
   logout: false,
+  white: false,
 };
 
 export default Button;

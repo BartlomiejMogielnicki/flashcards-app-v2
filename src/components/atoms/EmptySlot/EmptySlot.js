@@ -61,7 +61,7 @@ const StyledSlotContent = styled.div`
   height: 150px;
   width: 5px;
   position: relative;
-  background-color: #555;
+  background-color: #888;
   border-radius: 10px;
 
   ${({ small }) =>
@@ -77,7 +77,7 @@ const StyledSlotContent = styled.div`
     position: absolute;
     top: 50%;
     left: -70px;
-    background-color: #555;
+    background-color: #888;
     border-radius: 10px;
 
     ${({ small }) =>

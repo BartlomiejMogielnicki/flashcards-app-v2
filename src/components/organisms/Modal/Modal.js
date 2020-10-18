@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -42,6 +42,12 @@ const StyledModalBackground = styled.div`
   bottom: 0;
   background-color: #eeeeee88;
   animation: ${showBackground} 0.1s linear forwards;
+
+  ${({ startModal }) =>
+    startModal &&
+    css`
+      background-color: ${({ theme }) => theme.quaternaryColor};
+    `}
 `;
 
 const StyledWrapper = styled.div`
@@ -52,10 +58,17 @@ const StyledWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 5px;
   background-color: white;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
   color: ${({ theme }) => theme.tertiaryColor};
   animation: ${flipIn} 0.2s linear forwards;
+
+  ${({ startModal }) =>
+    startModal &&
+    css`
+      top: 60%;
+    `}
 
   @media (max-width: 550px) {
     width: 250px;
@@ -192,9 +205,10 @@ const Modal = ({
     }
   };
 
+  const startModal = modalType === 'login' || modalType === 'register';
   return (
-    <StyledModalBackground>
-      <StyledWrapper>
+    <StyledModalBackground startModal={startModal}>
+      <StyledWrapper startModal={startModal}>
         <StyledForm onSubmit={(e) => handleFormSubmit(e)}>
           <h2>{title}</h2>
           {modalType !== 'delete' && (
