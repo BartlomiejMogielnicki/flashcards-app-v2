@@ -26,7 +26,7 @@ const flipIn = keyframes`
 
 const StyledWrapper = styled.div`
   width: 350px;
-  height: 280px;
+  height: 300px;
   padding: 10px;
   position: absolute;
   top: 50%;
@@ -66,7 +66,7 @@ const StyledForm = styled.form`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   animation: ${showIn} 0.2s linear forwards;
 `;
@@ -82,6 +82,7 @@ const StyledInputSection = styled.div`
 
 const StyledButtonContainer = styled.div`
   width: 80%;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-evenly;
 `;
@@ -124,7 +125,7 @@ const Modal = ({
     title = 'Register new user';
   } else if (modalType === 'createCollection') {
     title = 'Create new collection';
-    label1 = 'Name';
+    label1 = 'Collection name';
     label1Placeholder = 'Enter collection name...';
     input1ErrorText = 'Please enter collection name';
   } else if (modalType === 'createCard') {

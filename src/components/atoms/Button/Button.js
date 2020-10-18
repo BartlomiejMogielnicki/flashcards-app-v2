@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const icons = {
   play: <i className="fas fa-play" />,
@@ -25,6 +25,12 @@ const StyledButton = styled.button`
   font-size: 1.2rem;
   transition: 0.2s;
 
+  ${({ big }) =>
+    big &&
+    css`
+      width: 90px;
+    `}
+
   &:hover {
     background-color: ${({ theme }) => theme.secondaryColor};
     color: white;
@@ -41,20 +47,9 @@ const StyledButton = styled.button`
   }
 `;
 
-// const StylledStartButton = styled(StyledButton)`
-//   width: 80px;
-// `;
-
-// const StylledHomeButton = styled(StyledButton)`
-//   &:hover {
-//     background-color: ${({ theme }) => theme.primaryColor};
-//     color: white;
-//   }
-// `;
-
-const Button = ({ icon, children, clicked, disabled }) => {
+const Button = ({ icon, children, clicked, disabled, big }) => {
   return (
-    <StyledButton disabled={disabled} onClick={clicked}>
+    <StyledButton disabled={disabled} onClick={clicked} big={big}>
       {children} {icons[icon]}
     </StyledButton>
   );
@@ -65,6 +60,7 @@ Button.propTypes = {
   children: PropTypes.string,
   clicked: PropTypes.func,
   disabled: PropTypes.bool,
+  big: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -72,6 +68,7 @@ Button.defaultProps = {
   children: null,
   clicked: null,
   disabled: false,
+  big: false,
 };
 
 export default Button;
