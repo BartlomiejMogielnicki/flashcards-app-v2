@@ -24,6 +24,26 @@ const flipIn = keyframes`
   }
 `;
 
+const showBackground = keyframes`
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+`;
+
+const StyledModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #eeeeee88;
+  animation: ${showBackground} 0.1s linear forwards;
+`;
+
 const StyledWrapper = styled.div`
   width: 350px;
   height: 300px;
@@ -173,53 +193,55 @@ const Modal = ({
   };
 
   return (
-    <StyledWrapper>
-      <StyledForm onSubmit={(e) => handleFormSubmit(e)}>
-        <h2>{title}</h2>
-        {modalType !== 'delete' && (
-          <StyledInputsContainer>
-            <StyledInputSection>
-              <label>
-                {label1}
-                <Input
-                  type="text"
-                  placeholder={label1Placeholder}
-                  value={input1}
-                  onChange={(e) => handleInputControl(e, 'input1')}
-                  autoFocus
-                />
-                {input1Error && <StyledErrorMessage>{input1ErrorText}</StyledErrorMessage>}
-                {authPasswordError && (
-                  <StyledErrorMessage>Invalid login or password</StyledErrorMessage>
-                )}
-              </label>
-            </StyledInputSection>
-            {modalType !== 'createCollection' && (
+    <StyledModalBackground>
+      <StyledWrapper>
+        <StyledForm onSubmit={(e) => handleFormSubmit(e)}>
+          <h2>{title}</h2>
+          {modalType !== 'delete' && (
+            <StyledInputsContainer>
               <StyledInputSection>
                 <label>
-                  {label2}
+                  {label1}
                   <Input
                     type="text"
-                    placeholder={label2Placeholder}
-                    value={input2}
-                    onChange={(e) => handleInputControl(e, 'input2')}
+                    placeholder={label1Placeholder}
+                    value={input1}
+                    onChange={(e) => handleInputControl(e, 'input1')}
+                    autoFocus
                   />
-                  {input2Error && <StyledErrorMessage>{input2ErrorText}</StyledErrorMessage>}
+                  {input1Error && <StyledErrorMessage>{input1ErrorText}</StyledErrorMessage>}
                   {authPasswordError && (
                     <StyledErrorMessage>Invalid login or password</StyledErrorMessage>
                   )}
                 </label>
               </StyledInputSection>
-            )}
-          </StyledInputsContainer>
-        )}
+              {modalType !== 'createCollection' && (
+                <StyledInputSection>
+                  <label>
+                    {label2}
+                    <Input
+                      type="text"
+                      placeholder={label2Placeholder}
+                      value={input2}
+                      onChange={(e) => handleInputControl(e, 'input2')}
+                    />
+                    {input2Error && <StyledErrorMessage>{input2ErrorText}</StyledErrorMessage>}
+                    {authPasswordError && (
+                      <StyledErrorMessage>Invalid login or password</StyledErrorMessage>
+                    )}
+                  </label>
+                </StyledInputSection>
+              )}
+            </StyledInputsContainer>
+          )}
 
-        <StyledButtonContainer>
-          <Button icon="apply" />
-          <Button icon="cancel" clicked={hideModal} />
-        </StyledButtonContainer>
-      </StyledForm>
-    </StyledWrapper>
+          <StyledButtonContainer>
+            <Button icon="apply" />
+            <Button icon="cancel" clicked={hideModal} />
+          </StyledButtonContainer>
+        </StyledForm>
+      </StyledWrapper>
+    </StyledModalBackground>
   );
 };
 

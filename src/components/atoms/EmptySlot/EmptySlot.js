@@ -91,7 +91,7 @@ const StyledSlotContent = styled.div`
 
 const EmptySlot = ({ clicked, small, isShowModal, modalType }) => (
   <StyledWrapper
-    active={(isShowModal && modalType === 'createCollection') || modalType === 'createCard'}
+    active={isShowModal && (modalType === 'createCollection' || modalType === 'createCard')}
     small={small}
     onClick={clicked}
   >

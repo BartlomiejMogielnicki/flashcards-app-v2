@@ -43,6 +43,8 @@ const rootReducer = (state = initialState, action) => {
         userName: '',
         userCollections: [],
         activeCollection: {},
+        isShowModal: false,
+        modalType: '',
       };
     case 'CREATEACCOUNT_SUCCESS':
       return {
