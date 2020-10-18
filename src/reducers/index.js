@@ -19,6 +19,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         isShowModal: false,
         modalType: '',
+        authError: '',
       };
     case 'AUTHENTICATION_SUCCESS':
       return {
@@ -32,7 +33,7 @@ const rootReducer = (state = initialState, action) => {
     case 'AUTHENTICATION_FAILURE':
       return {
         ...state,
-        authPasswordError: true,
+        authError: 'Invalid login or password',
       };
     case 'LOGOUT':
       return {
@@ -50,6 +51,18 @@ const rootReducer = (state = initialState, action) => {
         isShowModal: false,
         modalType: '',
         userID: action.payload.data.user._id,
+        authError: '',
+      };
+    case 'CREATEACCOUNT_FAILURE':
+      if (action.error.response.status === 409) {
+        return {
+          ...state,
+          authError: 'Login is already taken',
+        };
+      }
+      return {
+        ...state,
+        authError: 'Something went wrong, please try again',
       };
     case 'GETCOLLECTIONS_SUCCESS':
       return {

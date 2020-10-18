@@ -138,7 +138,7 @@ const Modal = ({
   createCard,
   collectionID,
   deleteCollection,
-  authPasswordError,
+  authError,
 }) => {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
@@ -224,9 +224,7 @@ const Modal = ({
                     autoFocus
                   />
                   {input1Error && <StyledErrorMessage>{input1ErrorText}</StyledErrorMessage>}
-                  {authPasswordError && (
-                    <StyledErrorMessage>Invalid login or password</StyledErrorMessage>
-                  )}
+                  {authError && <StyledErrorMessage>{authError}</StyledErrorMessage>}
                 </label>
               </StyledInputSection>
               {modalType !== 'createCollection' && (
@@ -240,9 +238,7 @@ const Modal = ({
                       onChange={(e) => handleInputControl(e, 'input2')}
                     />
                     {input2Error && <StyledErrorMessage>{input2ErrorText}</StyledErrorMessage>}
-                    {authPasswordError && (
-                      <StyledErrorMessage>Invalid login or password</StyledErrorMessage>
-                    )}
+                    {authError && <StyledErrorMessage>{authError}</StyledErrorMessage>}
                   </label>
                 </StyledInputSection>
               )}
@@ -270,7 +266,7 @@ Modal.propTypes = {
   createCard: PropTypes.func,
   collectionID: PropTypes.string,
   deleteCollection: PropTypes.func.isRequired,
-  authPasswordError: PropTypes.bool,
+  authError: PropTypes.string,
 };
 
 Modal.defaultProps = {
@@ -282,7 +278,7 @@ Modal.defaultProps = {
   activeCollection: null,
   createCard: null,
   collectionID: null,
-  authPasswordError: false,
+  authError: null,
 };
 
 const mapStateToProps = ({
@@ -291,8 +287,9 @@ const mapStateToProps = ({
   activeCollection,
   collectionID,
   authPasswordError,
+  authError,
 }) => {
-  return { modalType, userID, activeCollection, collectionID, authPasswordError };
+  return { modalType, userID, activeCollection, collectionID, authPasswordError, authError };
 };
 
 const mapDispatchToProps = (dispatch) => ({
