@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const StyledWrapper = styled.div`
   width: 250px;
@@ -12,20 +13,34 @@ const StyledWrapper = styled.div`
   border-radius: 10px;
   cursor: pointer;
 
+  ${({ active }) =>
+    active &&
+    css`
+      border: 2px solid ${({ theme }) => theme.quaternaryColor};
+
+      div {
+        background-color: ${({ theme }) => theme.tertiaryColor};
+      }
+
+      div::after {
+        background-color: ${({ theme }) => theme.tertiaryColor};
+      }
+    `}
+
   @media (max-height: 600px) {
     height: 250px;
   }
 
   &:hover {
-    border: 1px solid #ccc;
+    border: 2px solid ${({ theme }) => theme.quaternaryColor};
   }
 
   &:hover > div {
-    background-color: #ccc;
+    background-color: ${({ theme }) => theme.tertiaryColor};
   }
 
   &:hover > div::after {
-    background-color: #ccc;
+    background-color: ${({ theme }) => theme.tertiaryColor};
   }
 
   ${({ small }) =>
@@ -74,8 +89,8 @@ const StyledSlotContent = styled.div`
   }
 `;
 
-const EmptySlot = ({ clicked, small }) => (
-  <StyledWrapper small={small} onClick={clicked}>
+const EmptySlot = ({ clicked, small, isShowModal }) => (
+  <StyledWrapper active={isShowModal} small={small} onClick={clicked}>
     <StyledSlotContent small={small} />
   </StyledWrapper>
 );
@@ -83,6 +98,7 @@ const EmptySlot = ({ clicked, small }) => (
 EmptySlot.propTypes = {
   clicked: PropTypes.func,
   small: PropTypes.bool,
+  isShowModal: PropTypes.bool.isRequired,
 };
 
 EmptySlot.defaultProps = {
@@ -90,4 +106,10 @@ EmptySlot.defaultProps = {
   small: false,
 };
 
-export default EmptySlot;
+const mapStateToProps = ({ isShowModal }) => {
+  return {
+    isShowModal,
+  };
+};
+
+export default connect(mapStateToProps)(EmptySlot);
