@@ -3,6 +3,8 @@ const initialState = {
   modalType: '',
   activeCard: 0,
   swapDirection: 'right',
+  userID: '5f804e65b5343724f459dc00',
+  userName: 'User4',
 };
 
 const rootReducer = (state = initialState, action) => {

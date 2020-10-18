@@ -16,6 +16,7 @@ const StyledNavWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   background: ${({ theme }) => theme.secondaryColor};
+  border-bottom: 1px solid #999;
 
   @media (max-width: 550px) {
     height: 50px;

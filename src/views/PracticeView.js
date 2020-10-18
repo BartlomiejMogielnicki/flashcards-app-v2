@@ -33,7 +33,7 @@ const StyledWrapper = styled.div`
 
 const StyledHeading = styled.h2`
   font-size: 1.8rem;
-  color: white;
+  color: #222;
   letter-spacing: 2px;
 
   @media (max-height: 600px) {
@@ -53,7 +53,7 @@ const StyledButtonsContainer = styled.div`
 `;
 
 const StyledParagraph = styled.p`
-  color: white;
+  color: #222;
 `;
 
 const StyledArrowsContainer = styled.div`
@@ -70,8 +70,8 @@ const StyledInfo = styled.div`
   position: fixed;
   right: 20px;
   bottom: 20px;
-  border: 1px solid #777;
-  color: #777;
+  border: 1px solid #bbb;
+  color: #888;
   text-align: center;
 
   & img {

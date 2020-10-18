@@ -20,7 +20,9 @@ const StyledButton = styled.button`
   height: 40px;
   display: block;
   background-color: ${({ theme }) => theme.tertiaryColor};
-  color: #ddd;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
   text-transform: capitalize;
   font-size: 1.2rem;
   transition: 0.2s;

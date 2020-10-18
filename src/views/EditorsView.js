@@ -29,7 +29,7 @@ const StyledWrapper = styled.div`
 
 const StyledHeading = styled.h2`
   margin-bottom: 10px;
-  color: white;
+  color: #222;
   text-align: center;
 
   @media (max-height: 600px) {
@@ -55,7 +55,8 @@ const StyledCardItem = styled.li`
   flex-direction: column;
   align-items: center;
   position: relative;
-  border: 2px solid #555;
+  border: 2px solid ${({ theme }) => theme.quaternaryColor};
+  border-radius: 10px;
 `;
 
 const StyledCard = styled.div`
@@ -78,14 +79,13 @@ const StyledCardNumber = styled.div`
   width: 20px;
   position: absolute;
   top: -10px;
-  left: -10px;
+  left: -12px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.secondaryColor};
   border-radius: 50%;
   color: white;
-  font-weight: bold;
   font-size: 0.8rem;
 `;
 
@@ -103,7 +103,6 @@ const StyledDeleteButton = styled.button`
   border: none;
   color: white;
   font-size: 1rem;
-  font-weight: bold;
   transition: 0.3s;
 
   :hover {

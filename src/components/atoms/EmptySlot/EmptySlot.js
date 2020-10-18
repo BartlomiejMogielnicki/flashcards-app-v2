@@ -8,8 +8,8 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border: 2px solid #555;
+  border: 1px solid #aaa;
+  border-radius: 10px;
   cursor: pointer;
 
   @media (max-height: 600px) {

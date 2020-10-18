@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import Button from '../../atoms/Button/Button';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
-import cardsImage from '../../../assets/images/cards.png';
+import cardsImage from '../../../assets/images/cardsOrange.png';
 import {
   setActiveCollection as setActiveCollectionAction,
   deleteCollection as deleteCollectionAction,
@@ -14,20 +14,31 @@ import {
 } from '../../../actions';
 
 const StyledWrapper = styled.div`
-  padding: 20px 10px;
+  padding-bottom: 20px;
   width: 250px;
   height: 300px;
   display: grid;
   grid-template-rows: 1fr 4fr 1fr;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccc;
+  border: 2px solid ${({ theme }) => theme.quaternaryColor};
+  border-radius: 10px;
   text-align: center;
-  color: white;
+  color: #222;
 
   @media (max-height: 600px) {
     height: 250px;
   }
+`;
+
+const StyledTitle = styled.h2`
+  width: 250px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  color: #eee;
+  background-color: ${({ theme }) => theme.tertiaryColor};
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 `;
 
 const StyledCollectionImage = styled.div`
@@ -47,6 +58,7 @@ const StyledCollectionImage = styled.div`
 const StyledButtonsContainer = styled.div`
   width: 200px;
   display: flex;
+  justify-self: center;
   justify-content: space-evenly;
 `;
 
@@ -54,7 +66,7 @@ const Collection = ({ title, cards, id, setActiveCollection, showModal }) => {
   return (
     <StyledWrapper>
       <div>
-        <h2>{title}</h2>
+        <StyledTitle>{title}</StyledTitle>
         <Paragraph>
           {cards.length} {cards.length === 1 ? 'Card' : 'Cards'}
         </Paragraph>
