@@ -78,8 +78,8 @@ const StyledCardNumber = styled.div`
   height: 20px;
   width: 20px;
   position: absolute;
-  top: -10px;
-  left: -12px;
+  bottom: -10px;
+  left: -10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,11 +89,11 @@ const StyledCardNumber = styled.div`
   font-size: 0.8rem;
 `;
 
-const StyledDeleteButton = styled.button`
+const StyledDeleteButton = styled.div`
   height: 20px;
   width: 20px;
   position: absolute;
-  bottom: -10px;
+  top: -10px;
   right: -10px;
   display: flex;
   justify-content: center;
@@ -106,6 +106,7 @@ const StyledDeleteButton = styled.button`
   transition: 0.3s;
 
   :hover {
+    transform: scale(1.1);
     background-color: rgba(255, 0, 0, 1);
   }
 `;

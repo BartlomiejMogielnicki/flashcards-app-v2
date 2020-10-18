@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showModal as showModalAction } from '../actions/index';
@@ -210,16 +210,11 @@ class StartView extends Component {
         <StyledTitleWrapper>{letterCards}</StyledTitleWrapper>
         <StyledButtonsContainer>
           <Button white big clicked={() => showModal('login')}>
-            Login
+            Log In
           </Button>
           <Button white big clicked={() => showModal('register')}>
             Register
           </Button>
-          <Link to="/collections">
-            <Button white big>
-              Test
-            </Button>
-          </Link>
           {isShowModal && <Modal type={modalType} />}
         </StyledButtonsContainer>
       </StyledWrapper>

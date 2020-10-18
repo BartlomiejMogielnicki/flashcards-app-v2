@@ -88,7 +88,7 @@ const Navigation = ({ userName, logout }) => {
         </StyledUserInfo>
         <Link to="/">
           <Button big logout clicked={logout}>
-            Logout
+            Log Out
           </Button>
         </Link>
       </StyledUserContainer>

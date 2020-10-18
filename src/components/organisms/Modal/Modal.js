@@ -153,7 +153,7 @@ const Modal = ({
   let input1ErrorText = 'Please enter a login';
   let input2ErrorText = 'Please enter a password';
   if (modalType === 'login') {
-    title = 'Login user';
+    title = 'Log in user';
   } else if (modalType === 'register') {
     title = 'Register new user';
   } else if (modalType === 'createCollection') {
