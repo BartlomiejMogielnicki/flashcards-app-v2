@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+// const URL = 'http://localhost:3000/users'
+const URL = 'https://git.heroku.com/bmogielnicki-flashcards-app.git';
+
 export const showModal = (modalType, collectionID) => {
   return {
     type: 'SHOW_MODAL',
@@ -20,7 +23,7 @@ export const authenticate = (username, password) => (dispatch) => {
   dispatch({ type: 'AUTHENTICATE_REQUEST' });
 
   return axios
-    .post('http://localhost:3000/users/login', { name: username, password })
+    .post(`${URL}/login`, { name: username, password })
     .then((payload) => {
       dispatch({ type: 'AUTHENTICATION_SUCCESS', payload });
     })
@@ -42,7 +45,7 @@ export const getUserName = (authToken) => (dispatch) => {
   dispatch({ type: 'GETNAME_REQUEST' });
 
   return axios
-    .get('http://localhost:3000/users/name', {
+    .get(`${URL}/name`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -66,7 +69,7 @@ export const createAccount = (username, password) => (dispatch) => {
   dispatch({ type: 'CREATEACCOUNT_REQUEST' });
 
   return axios
-    .post('http://localhost:3000/users', { name: username, password })
+    .post(`${URL}/users`, { name: username, password })
     .then((payload) => {
       dispatch({ type: 'CREATEACCOUNT_SUCCESS', payload });
     })
@@ -79,7 +82,7 @@ export const getCollections = (authToken) => (dispatch) => {
   dispatch({ type: 'GETCOLLECTIONS_REQUEST' });
 
   return axios
-    .get('http://localhost:3000/collections', {
+    .get(`${URL}/collections`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -96,7 +99,7 @@ export const createCollection = (authToken, title) => (dispatch) => {
   dispatch({ type: 'CREATECOLLECTION_REQUEST' });
   return axios
     .post(
-      'http://localhost:3000/collections',
+      `${URL}/collections`,
       { title },
       {
         headers: {
@@ -116,7 +119,7 @@ export const createCollection = (authToken, title) => (dispatch) => {
 export const deleteCollection = (authToken, id) => (dispatch) => {
   dispatch({ type: 'DELETECOLLECTION_REQUEST' });
   return axios
-    .delete('http://localhost:3000/collections', {
+    .delete(`${URL}/collections`, {
       params: {
         id,
       },
@@ -152,7 +155,7 @@ export const createCard = (authToken, title, question, answer) => (dispatch) => 
   dispatch({ type: 'CREATECARD_REQUEST' });
   return axios
     .post(
-      'http://localhost:3000/cards',
+      `${URL}/cards`,
       { title, question, answer },
       {
         headers: {
@@ -172,7 +175,7 @@ export const createCard = (authToken, title, question, answer) => (dispatch) => 
 export const deleteCard = (authToken, collectionTitle, id) => (dispatch) => {
   dispatch({ type: 'DELETECARD_REQUEST' });
   return axios
-    .delete('http://localhost:3000/cards', {
+    .delete(`${URL}/cards`, {
       params: {
         collectionTitle,
         id,

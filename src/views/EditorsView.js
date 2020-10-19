@@ -97,7 +97,6 @@ const StyledDeleteButton = styled.div`
   right: -10px;
   display: flex;
   justify-content: center;
-  align-items: center;
   background-color: rgba(255, 0, 0, 0.7);
   border-radius: 50%;
   border: none;
@@ -107,7 +106,6 @@ const StyledDeleteButton = styled.div`
   transition: 0.3s;
 
   :hover {
-    transform: scale(1.1);
     background-color: rgba(255, 0, 0, 1);
   }
 `;
