@@ -190,7 +190,7 @@ class StartView extends Component {
 
   render() {
     const { cards } = this.state;
-    const { isShowModal, modalType, showModal, userID } = this.props;
+    const { isShowModal, modalType, showModal, authToken } = this.props;
     const letterCards = cards.slice(0, 10).map((card) => {
       return (
         <StyledLetterCard className={card.cardFlipped ? 'flipped' : null} key={card.id}>
@@ -202,7 +202,7 @@ class StartView extends Component {
       );
     });
 
-    if (userID) {
+    if (authToken) {
       return <Redirect to="/collections" />;
     }
     return (
@@ -226,16 +226,16 @@ StartView.propTypes = {
   isShowModal: PropTypes.bool.isRequired,
   showModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
-  userID: PropTypes.string,
+  authToken: PropTypes.string,
 };
 
 StartView.defaultProps = {
   modalType: null,
-  userID: null,
+  authToken: null,
 };
 
-const mapStateToProps = ({ isShowModal, modalType, userID }) => {
-  return { isShowModal, modalType, userID };
+const mapStateToProps = ({ isShowModal, modalType, authToken }) => {
+  return { isShowModal, modalType, authToken };
 };
 
 const mapDispatchToProps = (dispatch) => ({

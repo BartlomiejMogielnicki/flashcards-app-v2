@@ -26,7 +26,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         isShowModal: false,
         modalType: '',
-        userID: action.payload.data.user._id,
         userName: action.payload.data.user.name,
         authToken: action.payload.data.token,
         authPasswordError: false,
@@ -39,11 +38,11 @@ const rootReducer = (state = initialState, action) => {
     case 'LOGOUT':
       return {
         ...state,
-        userID: '',
         userName: '',
         userCollections: [],
         activeCollection: {},
         isShowModal: false,
+        authToken: '',
         modalType: '',
       };
     case 'CREATEACCOUNT_SUCCESS':
@@ -51,7 +50,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         isShowModal: false,
         modalType: '',
-        userID: action.payload.data.user._id,
         userName: action.payload.data.user.name,
         authToken: action.payload.data.token,
         authError: '',
