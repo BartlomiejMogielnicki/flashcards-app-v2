@@ -59,13 +59,13 @@ const CollectionsView = ({
   getUserName,
 }) => {
   useEffect(() => {
-    const savedToken = window.localStorage.getItem('authToken');
-    if (!savedToken) {
-      window.localStorage.setItem('authToken', authToken);
-      getCollections(authToken);
-    } else {
+    if (!authToken) {
+      const savedToken = window.localStorage.getItem('authToken');
       getUserName(savedToken);
       getCollections(savedToken);
+    } else {
+      window.localStorage.setItem('authToken', authToken);
+      getCollections(authToken);
     }
   }, []);
 

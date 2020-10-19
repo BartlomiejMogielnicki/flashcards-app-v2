@@ -56,6 +56,10 @@ const StyledButton = styled.button`
     css`
       background-color: white;
       color: #222;
+
+      &:hover {
+        border: 1px solid white;
+      }
     `}
 
   &:disabled {
