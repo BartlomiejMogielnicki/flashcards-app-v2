@@ -35,6 +35,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         authError: 'Invalid login or password',
       };
+    case 'SET_TOKEN':
+      return {
+        ...state,
+        authToken: action.payload.token,
+      };
+    case 'GETNAME_SUCCESS':
+      return {
+        ...state,
+        userName: action.payload.data.user.name,
+        authToken: action.authToken,
+      };
     case 'LOGOUT':
       return {
         ...state,
@@ -88,6 +99,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         userCollections: action.payload.data.collections,
       };
+    case 'CREATECOLLECTION_FAILURE':
+      return {
+        ...state,
+        authError: 'Collection name is already taken',
+      };
     case 'DELETECOLLECTION_SUCCESS':
       return {
         ...state,
@@ -132,17 +148,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         activeCard: 0,
-      };
-    case 'SET_TOKEN':
-      return {
-        ...state,
-        authToken: action.payload.token,
-      };
-    case 'GETNAME_SUCCESS':
-      return {
-        ...state,
-        userName: action.payload.data.user.name,
-        authToken: action.authToken,
       };
     default:
       return state;

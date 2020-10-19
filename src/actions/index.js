@@ -29,6 +29,32 @@ export const authenticate = (username, password) => (dispatch) => {
     });
 };
 
+export const setToken = (token) => {
+  return {
+    type: 'SET_TOKEN',
+    payload: {
+      token,
+    },
+  };
+};
+
+export const getUserName = (authToken) => (dispatch) => {
+  dispatch({ type: 'GETNAME_REQUEST' });
+
+  return axios
+    .get('http://localhost:3000/users/name', {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
+    .then((payload) => {
+      dispatch({ type: 'GETNAME_SUCCESS', payload, authToken });
+    })
+    .catch((error) => {
+      dispatch({ type: 'GETNAME_FAILURE', error });
+    });
+};
+
 export const logout = () => {
   window.localStorage.removeItem('authToken');
   return {
@@ -205,30 +231,4 @@ export const resetCard = () => {
   return {
     type: 'RESET_CARD',
   };
-};
-
-export const setToken = (token) => {
-  return {
-    type: 'SET_TOKEN',
-    payload: {
-      token,
-    },
-  };
-};
-
-export const getUserName = (authToken) => (dispatch) => {
-  dispatch({ type: 'GETNAME_REQUEST' });
-
-  return axios
-    .get('http://localhost:3000/users/name', {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-    .then((payload) => {
-      dispatch({ type: 'GETNAME_SUCCESS', payload, authToken });
-    })
-    .catch((error) => {
-      dispatch({ type: 'GETNAME_FAILURE', error });
-    });
 };

@@ -42,9 +42,10 @@ const StyledButton = styled.button`
   ${({ logout }) =>
     logout &&
     css`
-      width: 90px;
+      width: 80px;
+      height: 30px;
       background-color: ${({ theme }) => theme.secondaryColor};
-      border: 2px solid #555;
+      border: 2px solid white;
 
       &:hover {
         transform: scale(1.1);
