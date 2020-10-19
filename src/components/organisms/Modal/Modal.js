@@ -133,7 +133,6 @@ const Modal = ({
   authenticate,
   createAccount,
   createCollection,
-  userID,
   activeCollection,
   createCard,
   collectionID,
@@ -192,7 +191,7 @@ const Modal = ({
     } else if (modalType === 'createCollection') {
       createCollection(authToken, input1);
     } else if (modalType === 'createCard') {
-      createCard(userID, activeCollection.title, input1, input2);
+      createCard(authToken, activeCollection.title, input1, input2);
     } else if (modalType === 'delete') {
       deleteCollection(authToken, collectionID);
     }
@@ -262,7 +261,6 @@ Modal.propTypes = {
   authenticate: PropTypes.func,
   createAccount: PropTypes.func,
   createCollection: PropTypes.func,
-  userID: PropTypes.string,
   activeCollection: PropTypes.object,
   createCard: PropTypes.func,
   collectionID: PropTypes.string,
@@ -276,7 +274,6 @@ Modal.defaultProps = {
   authenticate: null,
   createAccount: null,
   createCollection: null,
-  userID: null,
   activeCollection: null,
   createCard: null,
   collectionID: null,
@@ -286,7 +283,6 @@ Modal.defaultProps = {
 
 const mapStateToProps = ({
   modalType,
-  userID,
   activeCollection,
   collectionID,
   authPasswordError,
@@ -295,7 +291,6 @@ const mapStateToProps = ({
 }) => {
   return {
     modalType,
-    userID,
     activeCollection,
     collectionID,
     authPasswordError,

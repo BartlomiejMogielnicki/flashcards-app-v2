@@ -122,10 +122,18 @@ export const resetActiveCollection = () => {
   };
 };
 
-export const createCard = (userID, title, question, answer) => (dispatch) => {
+export const createCard = (authToken, title, question, answer) => (dispatch) => {
   dispatch({ type: 'CREATECARD_REQUEST' });
   return axios
-    .post('http://localhost:3000/cards', { userID, title, question, answer })
+    .post(
+      'http://localhost:3000/cards',
+      { title, question, answer },
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    )
     .then((payload) => {
       dispatch({ type: 'CREATECARD_SUCCESS', payload });
       dispatch({ type: 'HIDE_MODAL' });
@@ -135,13 +143,16 @@ export const createCard = (userID, title, question, answer) => (dispatch) => {
     });
 };
 
-export const deleteCard = (collectionTitle, id) => (dispatch) => {
+export const deleteCard = (authToken, collectionTitle, id) => (dispatch) => {
   dispatch({ type: 'DELETECARD_REQUEST' });
   return axios
     .delete('http://localhost:3000/cards', {
       params: {
         collectionTitle,
         id,
+      },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
       },
     })
     .then((payload) => {

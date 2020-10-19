@@ -103,6 +103,7 @@ const StyledDeleteButton = styled.div`
   border: none;
   color: white;
   font-size: 1rem;
+  cursor: pointer;
   transition: 0.3s;
 
   :hover {
@@ -125,6 +126,7 @@ const EditorsView = ({
   modalType,
   showModal,
   deleteCard,
+  authToken,
 }) => {
   let cardsEl;
   if (activeCollection.cards) {
@@ -133,7 +135,7 @@ const EditorsView = ({
         <StyledCard>{card.question}</StyledCard>
         <StyledCard>{card.answer}</StyledCard>
         <StyledCardNumber>{index + 1}</StyledCardNumber>
-        <StyledDeleteButton onClick={() => deleteCard(activeCollection.title, card._id)}>
+        <StyledDeleteButton onClick={() => deleteCard(authToken, activeCollection.title, card._id)}>
           x
         </StyledDeleteButton>
       </StyledCardItem>
@@ -164,25 +166,29 @@ EditorsView.propTypes = {
   modalType: PropTypes.string,
   showModal: PropTypes.func,
   deleteCard: PropTypes.func.isRequired,
+  authToken: PropTypes.string,
 };
 
 EditorsView.defaultProps = {
   modalType: null,
   showModal: null,
+  authToken: null,
 };
 
-const mapStateToProps = ({ activeCollection, isShowModal, modalType }) => {
+const mapStateToProps = ({ activeCollection, isShowModal, modalType, authToken }) => {
   return {
     activeCollection,
     isShowModal,
     modalType,
+    authToken,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   resetActiveCollection: () => dispatch(resetActiveCollectionAction()),
   showModal: (modalType) => dispatch(showModalAction(modalType)),
-  deleteCard: (collectionTitle, id) => dispatch(deleteCardAction(collectionTitle, id)),
+  deleteCard: (authToken, collectionTitle, id) =>
+    dispatch(deleteCardAction(authToken, collectionTitle, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorsView);
