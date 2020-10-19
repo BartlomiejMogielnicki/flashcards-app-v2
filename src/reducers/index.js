@@ -28,6 +28,7 @@ const rootReducer = (state = initialState, action) => {
         modalType: '',
         userID: action.payload.data.user._id,
         userName: action.payload.data.user.name,
+        authToken: action.payload.data.token,
         authPasswordError: false,
       };
     case 'AUTHENTICATION_FAILURE':
@@ -51,6 +52,8 @@ const rootReducer = (state = initialState, action) => {
         isShowModal: false,
         modalType: '',
         userID: action.payload.data.user._id,
+        userName: action.payload.data.user.name,
+        authToken: action.payload.data.token,
         authError: '',
       };
     case 'CREATEACCOUNT_FAILURE':

@@ -49,15 +49,15 @@ const StyledCollectionsContainer = styled.div`
 `;
 
 const CollectionsView = ({
-  userID,
   getCollections,
   userCollections,
   isShowModal,
   modalType,
   showModal,
+  authToken,
 }) => {
   useEffect(() => {
-    getCollections(userID);
+    getCollections(authToken);
   }, []);
 
   const handleRandomId = () => {
@@ -88,24 +88,23 @@ const CollectionsView = ({
 };
 
 CollectionsView.propTypes = {
-  userID: PropTypes.string,
   getCollections: PropTypes.func,
   userCollections: PropTypes.array,
   isShowModal: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   showModal: PropTypes.func,
+  authToken: PropTypes.string.isRequired,
 };
 
 CollectionsView.defaultProps = {
-  userID: null,
   getCollections: null,
   userCollections: null,
   modalType: null,
   showModal: null,
 };
 
-const mapStateToProps = ({ userID, userCollections, isShowModal, modalType }) => {
-  return { userID, userCollections, isShowModal, modalType };
+const mapStateToProps = ({ userCollections, isShowModal, modalType, authToken }) => {
+  return { userCollections, isShowModal, modalType, authToken };
 };
 
 const mapDispatchToProps = (dispatch) => ({

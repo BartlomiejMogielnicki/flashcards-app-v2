@@ -30,6 +30,7 @@ export const authenticate = (username, password) => (dispatch) => {
 };
 
 export const logout = () => {
+  window.localStorage.removeItem('userID');
   return {
     type: 'LOGOUT',
   };
@@ -48,13 +49,13 @@ export const createAccount = (username, password) => (dispatch) => {
     });
 };
 
-export const getCollections = (userID) => (dispatch) => {
+export const getCollections = (authToken) => (dispatch) => {
   dispatch({ type: 'GETCOLLECTIONS_REQUEST' });
 
   return axios
     .get('http://localhost:3000/collections', {
-      params: {
-        _id: userID,
+      headers: {
+        Authorization: `Bearer ${authToken}`,
       },
     })
     .then((payload) => {
