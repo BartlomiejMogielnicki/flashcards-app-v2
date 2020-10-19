@@ -97,11 +97,12 @@ const Navigation = ({ userName, logout }) => {
 };
 
 Navigation.propTypes = {
-  userName: PropTypes.string.isRequired,
+  userName: PropTypes.string,
   logout: PropTypes.func,
 };
 
 Navigation.defaultProps = {
+  userName: null,
   logout: null,
 };
 

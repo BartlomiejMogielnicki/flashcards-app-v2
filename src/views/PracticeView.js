@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Button from '../components/atoms/Button/Button';
@@ -90,7 +90,10 @@ const StyledInfo = styled.div`
 `;
 
 const PracticeView = ({ activeCollection, activeCard, changeCard, randomCard, resetCard }) => {
-  const cardsNum = activeCollection.cards.length;
+  let cardsNum;
+  if (activeCollection) {
+    cardsNum = activeCollection.cards.length;
+  }
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 39 && activeCard !== cardsNum - 1) {
@@ -111,48 +114,62 @@ const PracticeView = ({ activeCollection, activeCard, changeCard, randomCard, re
 
   return (
     <StyledWrapper>
-      <StyledHeading>{activeCollection.title}</StyledHeading>
-      <CardsCarousel />
-      <StyledButtonsContainer>
-        <StyledArrowsContainer>
-          <Button disabled={activeCard === 0} icon="leftArrow" clicked={() => changeCard('left')} />
-          <StyledParagraph>
-            {activeCard + 1} / {cardsNum}
-          </StyledParagraph>
-          <Button
-            disabled={activeCard + 1 === cardsNum}
-            icon="rightArrow"
-            clicked={() => changeCard('right')}
-          />
-        </StyledArrowsContainer>
-        <div>
-          <Button
-            disabled={cardsNum === 1}
-            icon="random"
-            clicked={() => randomCard(cardsNum, activeCard)}
-          />
-        </div>
-        <Link to="/collections">
-          <Button icon="home" clicked={resetCard} />
-        </Link>
-      </StyledButtonsContainer>
-      <StyledInfo>
-        <p>
-          <i className="fas fa-info-circle" />
-          Navigate with keyboard
-        </p>
-        <img src={keysImage} alt="Keyboard arrow buttons" />
-      </StyledInfo>
+      {!activeCollection ? (
+        <Redirect to="/collections" />
+      ) : (
+        <>
+          <StyledHeading>{activeCollection.title}</StyledHeading>
+          <CardsCarousel />
+          <StyledButtonsContainer>
+            <StyledArrowsContainer>
+              <Button
+                disabled={activeCard === 0}
+                icon="leftArrow"
+                clicked={() => changeCard('left')}
+              />
+              <StyledParagraph>
+                {activeCard + 1} / {cardsNum}
+              </StyledParagraph>
+              <Button
+                disabled={activeCard + 1 === cardsNum}
+                icon="rightArrow"
+                clicked={() => changeCard('right')}
+              />
+            </StyledArrowsContainer>
+            <div>
+              <Button
+                disabled={cardsNum === 1}
+                icon="random"
+                clicked={() => randomCard(cardsNum, activeCard)}
+              />
+            </div>
+            <Link to="/collections">
+              <Button icon="home" clicked={resetCard} />
+            </Link>
+          </StyledButtonsContainer>
+          <StyledInfo>
+            <p>
+              <i className="fas fa-info-circle" />
+              Navigate with keyboard
+            </p>
+            <img src={keysImage} alt="Keyboard arrow buttons" />
+          </StyledInfo>
+        </>
+      )}
     </StyledWrapper>
   );
 };
 
 PracticeView.propTypes = {
-  activeCollection: PropTypes.object.isRequired,
+  activeCollection: PropTypes.object,
   activeCard: PropTypes.number.isRequired,
   changeCard: PropTypes.func.isRequired,
   randomCard: PropTypes.func.isRequired,
   resetCard: PropTypes.func.isRequired,
+};
+
+PracticeView.defaultProps = {
+  activeCollection: null,
 };
 
 const mapStateToProps = ({ activeCollection, activeCard }) => {

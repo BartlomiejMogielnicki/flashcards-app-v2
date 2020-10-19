@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { showModal as showModalAction } from '../actions/index';
+import { showModal as showModalAction, setToken as setTokenAction } from '../actions/index';
 
 import Button from '../components/atoms/Button/Button';
 import Modal from '../components/organisms/Modal/Modal';
@@ -155,20 +155,26 @@ class StartView extends Component {
   };
 
   componentDidMount() {
-    const { cards } = this.state;
-    for (let i = 0; i < cards.length; i++) {
-      setTimeout(() => {
-        cards[i].cardFlipped = true;
-        this.setState({
-          cards,
-        });
-      }, i * 100);
-      setTimeout(() => {
-        cards[i].cardShowed = true;
-        this.setState({
-          cards,
-        });
-      }, i * 100 + 80);
+    const { setToken } = this.props;
+    const savedToken = window.localStorage.getItem('authToken');
+    if (savedToken) {
+      setToken(savedToken);
+    } else {
+      const { cards } = this.state;
+      for (let i = 0; i < cards.length; i++) {
+        setTimeout(() => {
+          cards[i].cardFlipped = true;
+          this.setState({
+            cards,
+          });
+        }, i * 100);
+        setTimeout(() => {
+          cards[i].cardShowed = true;
+          this.setState({
+            cards,
+          });
+        }, i * 100 + 80);
+      }
     }
   }
 
@@ -227,6 +233,7 @@ StartView.propTypes = {
   showModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
   authToken: PropTypes.string,
+  setToken: PropTypes.func.isRequired,
 };
 
 StartView.defaultProps = {
@@ -240,6 +247,7 @@ const mapStateToProps = ({ isShowModal, modalType, authToken }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   showModal: (modalType) => dispatch(showModalAction(modalType)),
+  setToken: (token) => dispatch(setTokenAction(token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartView);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Button from '../components/atoms/Button/Button';
@@ -129,6 +129,11 @@ const EditorsView = ({
   authToken,
 }) => {
   let cardsEl;
+
+  if (!activeCollection) {
+    return <Redirect to="/collections" />;
+  }
+
   if (activeCollection.cards) {
     cardsEl = activeCollection.cards.map((card, index) => (
       <StyledCardItem key={card._id}>
@@ -160,7 +165,7 @@ const EditorsView = ({
 };
 
 EditorsView.propTypes = {
-  activeCollection: PropTypes.object.isRequired,
+  activeCollection: PropTypes.object,
   resetActiveCollection: PropTypes.func.isRequired,
   isShowModal: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
@@ -170,6 +175,7 @@ EditorsView.propTypes = {
 };
 
 EditorsView.defaultProps = {
+  activeCollection: null,
   modalType: null,
   showModal: null,
   authToken: null,

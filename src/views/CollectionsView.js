@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import {
   getCollections as getCollectionsAction,
   showModal as showModalAction,
+  getUserName as getUserNameAction,
 } from '../actions/index';
 
 import Collection from '../components/organisms/Collection/Collection';
@@ -55,9 +56,17 @@ const CollectionsView = ({
   modalType,
   showModal,
   authToken,
+  getUserName,
 }) => {
   useEffect(() => {
-    getCollections(authToken);
+    const savedToken = window.localStorage.getItem('authToken');
+    if (!savedToken) {
+      window.localStorage.setItem('authToken', authToken);
+      getCollections(authToken);
+    } else {
+      getUserName(savedToken);
+      getCollections(savedToken);
+    }
   }, []);
 
   const handleRandomId = () => {
@@ -93,7 +102,8 @@ CollectionsView.propTypes = {
   isShowModal: PropTypes.bool.isRequired,
   modalType: PropTypes.string,
   showModal: PropTypes.func,
-  authToken: PropTypes.string.isRequired,
+  authToken: PropTypes.string,
+  getUserName: PropTypes.func,
 };
 
 CollectionsView.defaultProps = {
@@ -101,6 +111,8 @@ CollectionsView.defaultProps = {
   userCollections: null,
   modalType: null,
   showModal: null,
+  authToken: null,
+  getUserName: null,
 };
 
 const mapStateToProps = ({ userCollections, isShowModal, modalType, authToken }) => {
@@ -110,6 +122,7 @@ const mapStateToProps = ({ userCollections, isShowModal, modalType, authToken })
 const mapDispatchToProps = (dispatch) => ({
   getCollections: (userID) => dispatch(getCollectionsAction(userID)),
   showModal: (modalType) => dispatch(showModalAction(modalType)),
+  getUserName: (userID) => dispatch(getUserNameAction(userID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionsView);

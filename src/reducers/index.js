@@ -133,6 +133,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         activeCard: 0,
       };
+    case 'SET_TOKEN':
+      return {
+        ...state,
+        authToken: action.payload.token,
+      };
+    case 'GETNAME_SUCCESS':
+      return {
+        ...state,
+        userName: action.payload.data.user.name,
+        authToken: action.authToken,
+      };
     default:
       return state;
   }
