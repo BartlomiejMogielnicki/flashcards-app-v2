@@ -66,10 +66,18 @@ export const getCollections = (authToken) => (dispatch) => {
     });
 };
 
-export const createCollection = (userID, title) => (dispatch) => {
+export const createCollection = (authToken, title) => (dispatch) => {
   dispatch({ type: 'CREATECOLLECTION_REQUEST' });
   return axios
-    .post('http://localhost:3000/collections', { userID, title })
+    .post(
+      'http://localhost:3000/collections',
+      { title },
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    )
     .then((payload) => {
       dispatch({ type: 'CREATECOLLECTION_SUCCESS', payload });
       dispatch({ type: 'HIDE_MODAL' });
@@ -79,12 +87,15 @@ export const createCollection = (userID, title) => (dispatch) => {
     });
 };
 
-export const deleteCollection = (id) => (dispatch) => {
+export const deleteCollection = (authToken, id) => (dispatch) => {
   dispatch({ type: 'DELETECOLLECTION_REQUEST' });
   return axios
     .delete('http://localhost:3000/collections', {
       params: {
         id,
+      },
+      headers: {
+        Authorization: `Bearer ${authToken}`,
       },
     })
     .then((payload) => {

@@ -139,6 +139,7 @@ const Modal = ({
   collectionID,
   deleteCollection,
   authError,
+  authToken,
 }) => {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
@@ -189,11 +190,11 @@ const Modal = ({
     } else if (modalType === 'register') {
       createAccount(input1, input2);
     } else if (modalType === 'createCollection') {
-      createCollection(userID, input1);
+      createCollection(authToken, input1);
     } else if (modalType === 'createCard') {
       createCard(userID, activeCollection.title, input1, input2);
     } else if (modalType === 'delete') {
-      deleteCollection(collectionID);
+      deleteCollection(authToken, collectionID);
     }
   };
 
@@ -267,6 +268,7 @@ Modal.propTypes = {
   collectionID: PropTypes.string,
   deleteCollection: PropTypes.func.isRequired,
   authError: PropTypes.string,
+  authToken: PropTypes.string,
 };
 
 Modal.defaultProps = {
@@ -279,6 +281,7 @@ Modal.defaultProps = {
   createCard: null,
   collectionID: null,
   authError: null,
+  authToken: null,
 };
 
 const mapStateToProps = ({
@@ -288,18 +291,27 @@ const mapStateToProps = ({
   collectionID,
   authPasswordError,
   authError,
+  authToken,
 }) => {
-  return { modalType, userID, activeCollection, collectionID, authPasswordError, authError };
+  return {
+    modalType,
+    userID,
+    activeCollection,
+    collectionID,
+    authPasswordError,
+    authError,
+    authToken,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   hideModal: () => dispatch(hideModalAction()),
   authenticate: (username, password) => dispatch(authenticateAction(username, password)),
   createAccount: (username, password) => dispatch(createAccountAction(username, password)),
-  createCollection: (userID, title) => dispatch(createCollectionAction(userID, title)),
+  createCollection: (authToken, title) => dispatch(createCollectionAction(authToken, title)),
   createCard: (userID, title, question, answer) =>
     dispatch(createCardAction(userID, title, question, answer)),
-  deleteCollection: (id) => dispatch(deleteCollectionAction(id)),
+  deleteCollection: (authToken, id) => dispatch(deleteCollectionAction(authToken, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);
