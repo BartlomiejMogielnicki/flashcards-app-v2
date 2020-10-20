@@ -36,6 +36,15 @@ const StyledUserContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  @media (max-width: 550px) {
+    margin-right: 10px;
+  }
+
+  @media (max-height: 600px) {
+    padding: 2px;
+    margin-right: 20px;
+  }
 `;
 
 const StyledUserInfo = styled.div`
@@ -45,6 +54,10 @@ const StyledUserInfo = styled.div`
 
   i {
     margin-right: 5px;
+  }
+
+  @media (max-width: 550px) {
+    display: none;
   }
 `;
 
@@ -80,8 +93,12 @@ const StyledLetters = styled.div`
 const StyledSpinnerContainer = styled.div`
   position: absolute;
   top: 50%;
-  left: 50%;
+  right: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 550px) {
+    right: 80px;
+  }
 `;
 
 const Navigation = ({ userName, logout, isLoading }) => {

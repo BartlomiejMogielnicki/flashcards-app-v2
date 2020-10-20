@@ -24,8 +24,8 @@ const StyledWrapper = styled.div`
   }
 
   @media (max-height: 600px) {
-    max-height: 150px;
-    max-width: 500px;
+    max-height: 175px;
+    max-width: 400px;
   }
 `;
 

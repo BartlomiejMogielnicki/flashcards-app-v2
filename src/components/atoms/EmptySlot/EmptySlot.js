@@ -47,9 +47,9 @@ const StyledWrapper = styled.div`
     small &&
     css`
       height: 100%;
-      min-height: 210px;
+      min-height: 300px;
       width: 100%;
-      min-width: 170px;
+      min-width: 250px;
 
       @media (max-height: 600px) {
         height: 210px;

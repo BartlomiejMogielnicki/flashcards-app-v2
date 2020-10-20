@@ -41,16 +41,16 @@ const StyledHeading = styled.h2`
 const StyledCardsList = styled.ul`
   margin: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
-  grid-template-rows: repeat(auto-fill, 210px);
+  grid-template-columns: repeat(auto-fill, 230px);
+  grid-template-rows: repeat(auto-fill, 300px);
   grid-gap: 20px 40px;
   justify-content: center;
   justify-items: center;
 `;
 
 const StyledCardItem = styled.li`
-  width: 170px;
-  height: 210px;
+  width: 250px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,15 +62,15 @@ const StyledCardItem = styled.li`
 const StyledCard = styled.div`
   margin: 10px;
   padding: 5px;
-  width: 150px;
-  height: 100px;
+  width: 90%;
+  height: 45%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 1rem;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
 `;
 

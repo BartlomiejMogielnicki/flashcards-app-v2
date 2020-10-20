@@ -37,7 +37,7 @@ const StyledHeading = styled.h2`
   letter-spacing: 2px;
 
   @media (max-height: 600px) {
-    font-size: 1.1rem;
+    display: none;
   }
 `;
 
