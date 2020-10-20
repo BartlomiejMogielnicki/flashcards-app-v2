@@ -19,7 +19,8 @@ const StyledCard = styled.div`
   }
 `;
 
-const StyledCardFront = styled.div`
+const StyledCardFront = styled(StyledCard)`
+  -webkit-backface-visibility: hidden;
   &.flipped {
     display: none;
   }
@@ -37,7 +38,6 @@ const StyledCardFront = styled.div`
 
 const StyledCardBack = styled(StyledCard)`
   display: none;
-  transform: scaleY(-1);
 
   &.flipped {
     display: flex;

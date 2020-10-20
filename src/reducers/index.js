@@ -62,6 +62,7 @@ const rootReducer = (state = initialState, action) => {
         isShowModal: false,
         authToken: '',
         modalType: '',
+        activeCard: 0,
       };
     case 'CREATEACCOUNT_REQUEST':
       return {
@@ -209,6 +210,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         activeCard: 0,
+        swapDirection: 'right',
       };
     default:
       return state;
