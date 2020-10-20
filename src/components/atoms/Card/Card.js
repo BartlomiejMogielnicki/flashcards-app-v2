@@ -20,6 +20,16 @@ const StyledCard = styled.div`
   }
 `;
 
+const FadeIn = keyframes`
+from {
+  opacity: 0;
+}
+
+to {
+  opacity: 1
+}
+`;
+
 const StyledCardFront = styled(StyledCard)`
   -webkit-backface-visibility: hidden;
   &.flipped {
@@ -34,6 +44,7 @@ const StyledCardFront = styled(StyledCard)`
     font-family: 'FontAwesome', 'Roboto Condensed', sans-serif;
     font-size: 0.9em;
     color: rgba(0, 0, 0, 0.5);
+    animation: ${FadeIn} 0.2s linear forwards;
   }
 `;
 
@@ -52,17 +63,8 @@ const StyledCardBack = styled(StyledCard)`
     font-family: 'FontAwesome', 'Roboto Condensed', sans-serif;
     font-size: 0.9em;
     color: rgba(0, 0, 0, 0.5);
+    animation: ${FadeIn} 0.2s linear forwards;
   }
-`;
-
-const FadeIn = keyframes`
-from {
-  opacity: 0;
-}
-
-to {
-  opacity: 1
-}
 `;
 
 const StyledCardText = styled.p`

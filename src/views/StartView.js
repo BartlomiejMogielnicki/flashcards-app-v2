@@ -154,7 +154,7 @@ const StyledButtonsContainer = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  animation: ${showButtons} 1.5s linear forwards;
+  animation: ${showButtons} 1.9s linear forwards;
 `;
 
 const StyledSpinnerContainer = styled.div`
@@ -192,9 +192,9 @@ class StartView extends Component {
             this.setState({
               cards,
             });
-          }, i * 130);
+          }, i * 120);
         }
-      }, 100);
+      }, 300);
     }
   }
 
