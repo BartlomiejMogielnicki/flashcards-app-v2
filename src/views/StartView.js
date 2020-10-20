@@ -113,6 +113,24 @@ const StyledCardBack = styled.div`
   }
 `;
 
+const showText = keyframes`
+0% {
+  opacity: 0
+}
+
+50% {
+  opacity: 0
+}
+
+100% {
+  opacity: 1
+}
+`;
+
+const StyledCardText = styled.p`
+  animation: ${showText} 0.1s linear forwards;
+`;
+
 const showButtons = keyframes`
 0% {
   opacity: 0
@@ -141,21 +159,17 @@ const StyledButtonsContainer = styled.div`
 class StartView extends Component {
   state = {
     cards: [
-      { cardText: 'F', cardFlipped: false, cardShowed: false, id: 0 },
-      { cardText: 'L', cardFlipped: false, cardShowed: false, id: 1 },
-      { cardText: 'A', cardFlipped: false, cardShowed: false, id: 2 },
-      { cardText: 'S', cardFlipped: false, cardShowed: false, id: 3 },
-      { cardText: 'H', cardFlipped: false, cardShowed: false, id: 5 },
-      { cardText: 'C', cardFlipped: false, cardShowed: false, id: 6 },
-      { cardText: 'A', cardFlipped: false, cardShowed: false, id: 7 },
-      { cardText: 'R', cardFlipped: false, cardShowed: false, id: 8 },
-      { cardText: 'D', cardFlipped: false, cardShowed: false, id: 9 },
-      { cardText: 'S', cardFlipped: false, cardShowed: false, id: 10 },
+      { cardText: 'F', cardShowed: false, id: 0 },
+      { cardText: 'L', cardShowed: false, id: 1 },
+      { cardText: 'A', cardShowed: false, id: 2 },
+      { cardText: 'S', cardShowed: false, id: 3 },
+      { cardText: 'H', cardShowed: false, id: 5 },
+      { cardText: 'C', cardShowed: false, id: 6 },
+      { cardText: 'A', cardShowed: false, id: 7 },
+      { cardText: 'R', cardShowed: false, id: 8 },
+      { cardText: 'D', cardShowed: false, id: 9 },
+      { cardText: 'S', cardShowed: false, id: 10 },
     ],
-    startCard: {
-      isFlipped: false,
-      isHidden: false,
-    },
   };
 
   componentDidMount() {
@@ -165,48 +179,28 @@ class StartView extends Component {
       setToken(savedToken);
     } else {
       const { cards } = this.state;
-      for (let i = 0; i < cards.length; i++) {
-        setTimeout(() => {
-          cards[i].cardFlipped = true;
-          this.setState({
-            cards,
-          });
-        }, i * 100);
-        setTimeout(() => {
-          cards[i].cardShowed = true;
-          this.setState({
-            cards,
-          });
-        }, i * 100 + 80);
-      }
+      setTimeout(() => {
+        for (let i = 1; i <= cards.length; i++) {
+          setTimeout(() => {
+            cards[i - 1].cardShowed = true;
+            this.setState({
+              cards,
+            });
+          }, i * 130);
+        }
+      }, 100);
     }
   }
-
-  handleStartCardFlip = () => {
-    const { cards, startCard, cardsFlipped } = this.state;
-    startCard.isFlipped = true;
-    cards[13].cardFlipped = false;
-    this.setState({
-      cardsFlipped,
-      startCard,
-    });
-    setTimeout(() => {
-      startCard.isHidden = true;
-      this.setState({
-        startCard,
-      });
-    }, 80);
-  };
 
   render() {
     const { cards } = this.state;
     const { isShowModal, modalType, showModal, authToken, authenticate } = this.props;
     const letterCards = cards.slice(0, 10).map((card) => {
       return (
-        <StyledLetterCard className={card.cardFlipped ? 'flipped' : null} key={card.id}>
+        <StyledLetterCard className={card.cardShowed ? 'flipped' : null} key={card.id}>
           <StyledCardFront className={card.cardShowed ? 'showed' : null} />
           <StyledCardBack className={card.cardShowed ? 'showed' : null}>
-            {card.cardText}
+            <StyledCardText>{card.cardText}</StyledCardText>
           </StyledCardBack>
         </StyledLetterCard>
       );
