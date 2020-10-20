@@ -25,6 +25,7 @@ export const authenticate = (username, password) => (dispatch) => {
   return axios
     .post(`${URL}/users/login`, { name: username, password })
     .then((payload) => {
+      console.log(payload);
       dispatch({ type: 'AUTHENTICATION_SUCCESS', payload });
     })
     .catch((error) => {

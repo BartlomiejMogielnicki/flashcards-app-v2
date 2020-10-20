@@ -3,15 +3,18 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Button from '../../atoms/Button/Button';
 
 import { logout as logoutAction } from '../../../actions/index';
+
+import Button from '../../atoms/Button/Button';
+import Spinner from '../../atoms/Spinner/Spinner';
 
 const letters = ['F', 'L', 'A', 'S', 'H', 'C', 'A', 'R', 'D', 'S'];
 
 const StyledNavWrapper = styled.div`
   width: 100%;
   height: 75px;
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -74,7 +77,14 @@ const StyledLetters = styled.div`
   }
 `;
 
-const Navigation = ({ userName, logout }) => {
+const StyledSpinnerContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const Navigation = ({ userName, logout, isLoading }) => {
   const lerrersEl = letters.map((letter, index) => (
     <StyledLetters key={index}>{letter}</StyledLetters>
   ));
@@ -92,6 +102,11 @@ const Navigation = ({ userName, logout }) => {
           </Button>
         </Link>
       </StyledUserContainer>
+      {isLoading && (
+        <StyledSpinnerContainer>
+          <Spinner />
+        </StyledSpinnerContainer>
+      )}
     </StyledNavWrapper>
   );
 };
@@ -99,15 +114,17 @@ const Navigation = ({ userName, logout }) => {
 Navigation.propTypes = {
   userName: PropTypes.string,
   logout: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 Navigation.defaultProps = {
   userName: null,
   logout: null,
+  isLoading: false,
 };
 
-const mapStateToProps = ({ userName }) => {
-  return { userName };
+const mapStateToProps = ({ userName, isLoading }) => {
+  return { userName, isLoading };
 };
 
 const mapDispatchToProps = (dispatch) => ({

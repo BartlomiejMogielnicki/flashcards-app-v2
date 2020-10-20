@@ -23,6 +23,7 @@ const rootReducer = (state = initialState, action) => {
       };
     case 'AUTHENTICATE_REQUEST':
       return {
+        ...state,
         isLoading: true,
       };
     case 'AUTHENTICATION_SUCCESS':
@@ -39,6 +40,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         authError: 'Invalid login or password',
+        isLoading: false,
       };
     case 'SET_TOKEN':
       return {
@@ -63,6 +65,7 @@ const rootReducer = (state = initialState, action) => {
       };
     case 'CREATEACCOUNT_REQUEST':
       return {
+        ...state,
         isLoading: true,
       };
     case 'CREATEACCOUNT_SUCCESS':
@@ -86,11 +89,22 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         authError: 'Something went wrong, please try again',
+        isLoading: false,
+      };
+    case 'GETCOLLECTIONS_REQUEST':
+      return {
+        ...state,
+        isLoading: true,
       };
     case 'GETCOLLECTIONS_SUCCESS':
       return {
         ...state,
         userCollections: action.payload.data.collections,
+        isLoading: false,
+      };
+    case 'GETCOLLECTIONS_FAILURE':
+      return {
+        ...state,
         isLoading: false,
       };
     case 'SET_ACTIVECOLLECTION':
@@ -106,6 +120,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         activeCollection: {},
       };
+    case 'CREATECOLLECTION_REQUEST':
+      return {
+        ...state,
+        isLoading: true,
+      };
     case 'CREATECOLLECTION_SUCCESS':
       return {
         ...state,
@@ -118,6 +137,11 @@ const rootReducer = (state = initialState, action) => {
         authError: 'Collection name is already taken',
         isLoading: false,
       };
+    case 'DELETECOLLECTION_REQUEST':
+      return {
+        ...state,
+        isLoading: true,
+      };
     case 'DELETECOLLECTION_SUCCESS':
       return {
         ...state,
@@ -127,6 +151,11 @@ const rootReducer = (state = initialState, action) => {
         modalType: '',
         isLoading: false,
       };
+    case 'CREATECARD_REQUEST':
+      return {
+        ...state,
+        isLoading: true,
+      };
     case 'CREATECARD_SUCCESS':
       return {
         ...state,
@@ -134,6 +163,17 @@ const rootReducer = (state = initialState, action) => {
           ...state.activeCollection,
           cards: [...state.activeCollection.cards, action.payload.data.card],
         },
+        isLoading: false,
+      };
+    case 'CREATECARD_FAILURE':
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case 'DELETECARD_REQUEST':
+      return {
+        ...state,
+        isLoading: true,
       };
     case 'DELETECARD_SUCCESS':
       return {
@@ -146,6 +186,12 @@ const rootReducer = (state = initialState, action) => {
             }),
           ],
         },
+        isLoading: false,
+      };
+    case 'DELETECARD_FAILURE':
+      return {
+        ...state,
+        isLoading: false,
       };
     case 'CHANGE_CARD':
       return {

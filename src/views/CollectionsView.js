@@ -99,7 +99,7 @@ const CollectionsView = ({
 CollectionsView.propTypes = {
   getCollections: PropTypes.func,
   userCollections: PropTypes.array,
-  isShowModal: PropTypes.bool.isRequired,
+  isShowModal: PropTypes.bool,
   modalType: PropTypes.string,
   showModal: PropTypes.func,
   authToken: PropTypes.string,
@@ -109,6 +109,7 @@ CollectionsView.propTypes = {
 CollectionsView.defaultProps = {
   getCollections: null,
   userCollections: null,
+  isShowModal: false,
   modalType: null,
   showModal: null,
   authToken: null,

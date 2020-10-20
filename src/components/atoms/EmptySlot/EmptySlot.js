@@ -102,13 +102,15 @@ const EmptySlot = ({ clicked, small, isShowModal, modalType }) => (
 EmptySlot.propTypes = {
   clicked: PropTypes.func,
   small: PropTypes.bool,
-  isShowModal: PropTypes.bool.isRequired,
-  modalType: PropTypes.string.isRequired,
+  isShowModal: PropTypes.bool,
+  modalType: PropTypes.string,
 };
 
 EmptySlot.defaultProps = {
   clicked: null,
   small: false,
+  isShowModal: false,
+  modalType: null,
 };
 
 const mapStateToProps = ({ isShowModal, modalType }) => {

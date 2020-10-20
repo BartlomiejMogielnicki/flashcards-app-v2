@@ -241,18 +241,20 @@ class StartView extends Component {
 }
 
 StartView.propTypes = {
-  isShowModal: PropTypes.bool.isRequired,
+  isShowModal: PropTypes.bool,
   showModal: PropTypes.func.isRequired,
   modalType: PropTypes.string,
   authToken: PropTypes.string,
   setToken: PropTypes.func.isRequired,
   authenticate: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 StartView.defaultProps = {
+  isShowModal: false,
   modalType: null,
   authToken: null,
+  isLoading: false,
 };
 
 const mapStateToProps = ({ isShowModal, modalType, authToken, isLoading }) => {
