@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const URL = 'http://localhost:3000/users'
-const URL = 'https://git.heroku.com/bmogielnicki-flashcards-app.git';
+// const URL = 'http://localhost:3000';
+const URL = 'https://bmogielnicki-flashcards-app.herokuapp.com';
 
 export const showModal = (modalType, collectionID) => {
   return {
@@ -23,7 +23,7 @@ export const authenticate = (username, password) => (dispatch) => {
   dispatch({ type: 'AUTHENTICATE_REQUEST' });
 
   return axios
-    .post(`${URL}/login`, { name: username, password })
+    .post(`${URL}/users/login`, { name: username, password })
     .then((payload) => {
       dispatch({ type: 'AUTHENTICATION_SUCCESS', payload });
     })
@@ -45,7 +45,7 @@ export const getUserName = (authToken) => (dispatch) => {
   dispatch({ type: 'GETNAME_REQUEST' });
 
   return axios
-    .get(`${URL}/name`, {
+    .get(`${URL}/users/name`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
