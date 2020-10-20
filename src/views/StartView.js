@@ -3,7 +3,11 @@ import styled, { keyframes } from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { showModal as showModalAction, setToken as setTokenAction } from '../actions/index';
+import {
+  showModal as showModalAction,
+  setToken as setTokenAction,
+  authenticate as authenticateAction,
+} from '../actions/index';
 
 import Button from '../components/atoms/Button/Button';
 import Modal from '../components/organisms/Modal/Modal';
@@ -196,7 +200,7 @@ class StartView extends Component {
 
   render() {
     const { cards } = this.state;
-    const { isShowModal, modalType, showModal, authToken } = this.props;
+    const { isShowModal, modalType, showModal, authToken, authenticate } = this.props;
     const letterCards = cards.slice(0, 10).map((card) => {
       return (
         <StyledLetterCard className={card.cardFlipped ? 'flipped' : null} key={card.id}>
@@ -221,6 +225,9 @@ class StartView extends Component {
           <Button white big clicked={() => showModal('register')}>
             Register
           </Button>
+          <Button white big clicked={() => authenticate('TestUser', 'TestUserPassword')}>
+            Try It
+          </Button>
           {isShowModal && <Modal type={modalType} />}
         </StyledButtonsContainer>
       </StyledWrapper>
@@ -234,6 +241,7 @@ StartView.propTypes = {
   modalType: PropTypes.string,
   authToken: PropTypes.string,
   setToken: PropTypes.func.isRequired,
+  authenticate: PropTypes.func.isRequired,
 };
 
 StartView.defaultProps = {
@@ -248,6 +256,7 @@ const mapStateToProps = ({ isShowModal, modalType, authToken }) => {
 const mapDispatchToProps = (dispatch) => ({
   showModal: (modalType) => dispatch(showModalAction(modalType)),
   setToken: (token) => dispatch(setTokenAction(token)),
+  authenticate: (username, password) => dispatch(authenticateAction(username, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartView);
