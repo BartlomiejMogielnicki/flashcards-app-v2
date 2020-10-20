@@ -11,6 +11,7 @@ import {
 
 import Button from '../components/atoms/Button/Button';
 import Modal from '../components/organisms/Modal/Modal';
+import Spinner from '../components/atoms/Spinner/Spinner';
 
 const StyledWrapper = styled.div`
   padding: 10px;
@@ -156,6 +157,11 @@ const StyledButtonsContainer = styled.div`
   animation: ${showButtons} 1.5s linear forwards;
 `;
 
+const StyledSpinnerContainer = styled.div`
+  position: absolute;
+  top: 78%;
+`;
+
 class StartView extends Component {
   state = {
     cards: [
@@ -194,7 +200,7 @@ class StartView extends Component {
 
   render() {
     const { cards } = this.state;
-    const { isShowModal, modalType, showModal, authToken, authenticate } = this.props;
+    const { isShowModal, modalType, showModal, authToken, authenticate, isLoading } = this.props;
     const letterCards = cards.slice(0, 10).map((card) => {
       return (
         <StyledLetterCard className={card.cardShowed ? 'flipped' : null} key={card.id}>
@@ -224,6 +230,11 @@ class StartView extends Component {
           </Button>
           {isShowModal && <Modal type={modalType} />}
         </StyledButtonsContainer>
+        {isLoading && (
+          <StyledSpinnerContainer>
+            <Spinner />
+          </StyledSpinnerContainer>
+        )}
       </StyledWrapper>
     );
   }
@@ -236,6 +247,7 @@ StartView.propTypes = {
   authToken: PropTypes.string,
   setToken: PropTypes.func.isRequired,
   authenticate: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 StartView.defaultProps = {
@@ -243,8 +255,8 @@ StartView.defaultProps = {
   authToken: null,
 };
 
-const mapStateToProps = ({ isShowModal, modalType, authToken }) => {
-  return { isShowModal, modalType, authToken };
+const mapStateToProps = ({ isShowModal, modalType, authToken, isLoading }) => {
+  return { isShowModal, modalType, authToken, isLoading };
 };
 
 const mapDispatchToProps = (dispatch) => ({

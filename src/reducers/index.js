@@ -21,6 +21,10 @@ const rootReducer = (state = initialState, action) => {
         modalType: '',
         authError: '',
       };
+    case 'AUTHENTICATE_REQUEST':
+      return {
+        isLoading: true,
+      };
     case 'AUTHENTICATION_SUCCESS':
       return {
         ...state,
@@ -29,6 +33,7 @@ const rootReducer = (state = initialState, action) => {
         userName: action.payload.data.user.name,
         authToken: action.payload.data.token,
         authPasswordError: false,
+        isLoading: false,
       };
     case 'AUTHENTICATION_FAILURE':
       return {
@@ -56,6 +61,10 @@ const rootReducer = (state = initialState, action) => {
         authToken: '',
         modalType: '',
       };
+    case 'CREATEACCOUNT_REQUEST':
+      return {
+        isLoading: true,
+      };
     case 'CREATEACCOUNT_SUCCESS':
       return {
         ...state,
@@ -64,12 +73,14 @@ const rootReducer = (state = initialState, action) => {
         userName: action.payload.data.user.name,
         authToken: action.payload.data.token,
         authError: '',
+        isLoading: false,
       };
     case 'CREATEACCOUNT_FAILURE':
       if (action.error.response.status === 409) {
         return {
           ...state,
           authError: 'Login is already taken',
+          isLoading: false,
         };
       }
       return {
@@ -80,6 +91,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         userCollections: action.payload.data.collections,
+        isLoading: false,
       };
     case 'SET_ACTIVECOLLECTION':
       return {
@@ -98,11 +110,13 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         userCollections: action.payload.data.collections,
+        isLoading: false,
       };
     case 'CREATECOLLECTION_FAILURE':
       return {
         ...state,
         authError: 'Collection name is already taken',
+        isLoading: false,
       };
     case 'DELETECOLLECTION_SUCCESS':
       return {
@@ -111,6 +125,7 @@ const rootReducer = (state = initialState, action) => {
         collectionID: '',
         isShowModal: false,
         modalType: '',
+        isLoading: false,
       };
     case 'CREATECARD_SUCCESS':
       return {
