@@ -144,6 +144,8 @@ const Modal = ({
   const [input2, setInput2] = useState('');
   const [input1Error, setInput1Error] = useState(false);
   const [input2Error, setInput2Error] = useState(false);
+  const [input1LengthError, setInput1LengthError] = useState(false);
+  const [input2LengthError, setInput2LengthError] = useState(false);
 
   let title;
   let label1 = 'Login';
@@ -152,6 +154,8 @@ const Modal = ({
   let label2Placeholder = 'Enter a password...';
   let input1ErrorText = 'Please enter a login';
   let input2ErrorText = 'Please enter a password';
+  const input1LengthErrorText = 'Maximum length is 10 characters';
+  const input2LengthErrorText = 'Minimum length is 7 characters';
   if (modalType === 'login') {
     title = 'Log in user';
   } else if (modalType === 'register') {
@@ -187,8 +191,20 @@ const Modal = ({
     if (modalType === 'login') {
       authenticate(input1, input2);
     } else if (modalType === 'register') {
+      if (input1.length > 10) {
+        return setInput1LengthError(true);
+      }
+      if (input2.length < 7) {
+        return setInput2LengthError(true);
+      }
+      setInput1LengthError(false);
+      setInput2LengthError(false);
       createAccount(input1, input2);
     } else if (modalType === 'createCollection') {
+      if (input1.length > 10) {
+        return setInput1LengthError(true);
+      }
+      setInput1LengthError(false);
       createCollection(authToken, input1);
     } else if (modalType === 'createCard') {
       createCard(authToken, activeCollection.title, input1, input2);
@@ -225,6 +241,9 @@ const Modal = ({
                   />
                   {input1Error && <StyledErrorMessage>{input1ErrorText}</StyledErrorMessage>}
                   {authError && <StyledErrorMessage>{authError}</StyledErrorMessage>}
+                  {input1LengthError && (
+                    <StyledErrorMessage>{input1LengthErrorText}</StyledErrorMessage>
+                  )}
                 </label>
               </StyledInputSection>
               {modalType !== 'createCollection' && (
@@ -239,6 +258,9 @@ const Modal = ({
                     />
                     {input2Error && <StyledErrorMessage>{input2ErrorText}</StyledErrorMessage>}
                     {authError && <StyledErrorMessage>{authError}</StyledErrorMessage>}
+                    {input2LengthError && (
+                      <StyledErrorMessage>{input2LengthErrorText}</StyledErrorMessage>
+                    )}
                   </label>
                 </StyledInputSection>
               )}
