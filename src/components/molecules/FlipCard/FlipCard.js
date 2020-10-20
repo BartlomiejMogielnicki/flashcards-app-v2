@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import Card from '../../atoms/Card/Card';
 
+import { setFlipAnimation as setFlipAnimationAction } from '../../../actions/index';
+
 const slideInLeft = keyframes`
 from {
   transform: translateX(120%) rotateY(-20deg);
@@ -97,11 +99,12 @@ const StyledCardContainer = styled.div`
   }
 `;
 
-const FlipCard = ({ card, cardLeft, cardRight, swapDirection }) => {
+const FlipCard = ({ card, cardLeft, cardRight, swapDirection, setFlipAnimation }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleKeyPress = (e) => {
     if (e.keyCode === 38 || e.keyCode === 40) {
+      setFlipAnimation();
       setIsFlipped(!isFlipped);
     }
   };
@@ -113,11 +116,15 @@ const FlipCard = ({ card, cardLeft, cardRight, swapDirection }) => {
     };
   });
 
+  const flipCard = () => {
+    setFlipAnimation();
+    setIsFlipped(!isFlipped);
+  };
+
   const cardLeftEl = (
     <StyledCardContainer
       className={`${isFlipped ? 'flipped' : ''} 
       ${swapDirection === 'right' ? 'slideOutLeft' : 'cardLeft'}`}
-      onClick={() => setIsFlipped(!isFlipped)}
       cardLeft
     >
       <Card isFlipped={isFlipped} card={card} />
@@ -127,7 +134,7 @@ const FlipCard = ({ card, cardLeft, cardRight, swapDirection }) => {
     <StyledCardContainer
       className={`${isFlipped ? 'flipped' : ''}
       ${swapDirection === 'right' ? 'slideInLeft' : 'slideInRight'}`}
-      onClick={() => setIsFlipped(!isFlipped)}
+      onClick={() => flipCard()}
     >
       <Card isFlipped={isFlipped} card={card} />
     </StyledCardContainer>
@@ -136,7 +143,6 @@ const FlipCard = ({ card, cardLeft, cardRight, swapDirection }) => {
     <StyledCardContainer
       className={`${isFlipped ? 'flipped' : ''} 
       ${swapDirection === 'right' ? 'cardRight' : 'slideOutRight'}`}
-      onClick={() => setIsFlipped(!isFlipped)}
       cardRight
     >
       <Card isFlipped={isFlipped} card={card} />
@@ -157,6 +163,7 @@ FlipCard.propTypes = {
   cardLeft: PropTypes.bool,
   cardRight: PropTypes.bool,
   swapDirection: PropTypes.string.isRequired,
+  setFlipAnimation: PropTypes.func.isRequired,
 };
 
 FlipCard.defaultProps = {
@@ -170,4 +177,8 @@ const mapStateToProps = ({ swapDirection }) => {
   };
 };
 
-export default connect(mapStateToProps)(FlipCard);
+const mapDispatchToProps = (dispatch) => ({
+  setFlipAnimation: () => dispatch(setFlipAnimationAction()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FlipCard);

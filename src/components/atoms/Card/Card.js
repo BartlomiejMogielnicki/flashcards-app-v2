@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const StyledCard = styled.div`
   width: 100%;
@@ -66,7 +67,10 @@ to {
 
 const StyledCardText = styled.p`
   font-size: 1.3rem;
-  animation: ${FadeIn} 0.2s linear forwards;
+
+  &.flip {
+    animation: ${FadeIn} 0.2s linear forwards;
+  }
 
   @media (max-width: 550px) {
     font-size: 1rem;
@@ -77,15 +81,15 @@ const StyledCardText = styled.p`
   }
 `;
 
-const Card = ({ isFlipped, card }) => {
+const Card = ({ isFlipped, card, cardAnimation }) => {
   const { question, answer } = card;
   return (
     <StyledCard className={`${isFlipped ? 'flipped' : ''}`}>
       <StyledCardFront className={`${isFlipped ? 'flipped' : ''}`}>
-        <StyledCardText>{question}</StyledCardText>
+        <StyledCardText className={`${cardAnimation}`}>{question}</StyledCardText>
       </StyledCardFront>
       <StyledCardBack className={`${isFlipped ? 'flipped' : ''}`}>
-        <StyledCardText>{answer}</StyledCardText>
+        <StyledCardText className={`${cardAnimation}`}>{answer}</StyledCardText>
       </StyledCardBack>
     </StyledCard>
   );
@@ -94,10 +98,19 @@ const Card = ({ isFlipped, card }) => {
 Card.propTypes = {
   isFlipped: PropTypes.bool,
   card: PropTypes.object,
+  cardAnimation: PropTypes.string,
 };
 
 Card.defaultProps = {
   isFlipped: null,
   card: null,
+  cardAnimation: null,
 };
-export default Card;
+
+const mapStateToProps = ({ cardAnimation }) => {
+  return {
+    cardAnimation,
+  };
+};
+
+export default connect(mapStateToProps)(Card);

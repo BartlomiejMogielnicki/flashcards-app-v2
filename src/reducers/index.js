@@ -199,6 +199,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         activeCard: state.activeCard + action.payload.changeNum,
         swapDirection: action.payload.direction,
+        cardAnimation: '',
       };
     case 'RANDOM_CARD':
       return {
@@ -211,6 +212,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         activeCard: 0,
         swapDirection: 'right',
+      };
+    case 'SET_FLIPANIMATION':
+      return {
+        ...state,
+        cardAnimation: 'flip',
       };
     default:
       return state;
