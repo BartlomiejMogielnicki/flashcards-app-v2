@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '../store/index';
+import store from 'store/index';
 
-import MainTemplate from '../templates/MainTemplate';
-import StartView from './StartView';
-import CollectionsView from './CollectionsView';
-import EditorsView from './EditorsView';
-import PracticeView from './PracticeView';
+import MainTemplate from 'templates/MainTemplate';
+import StartView from 'views/StartView';
+import CollectionsView from 'views/CollectionsView';
+import EditorsView from 'views/EditorsView';
+import PracticeView from 'views/PracticeView';
 
 const Root = () => (
   <Provider store={store}>

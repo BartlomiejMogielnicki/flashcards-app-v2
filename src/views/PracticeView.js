@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Button from '../components/atoms/Button/Button';
-import CardsCarousel from '../components/organisms/CardsCarousel/CardsCarousel';
-import keysImage from '../assets/images/keys.png';
+import Button from 'components/atoms/Button/Button';
+import CardsCarousel from 'components/organisms/CardsCarousel/CardsCarousel';
+import keysImage from 'assets/images/keys.png';
 
 import {
   changeCard as changeCardAction,
   randomCard as randomCardAction,
   resetCard as resetCardAction,
-} from '../actions/index';
+} from 'actions';
 
 const StyledWrapper = styled.div`
   perspective: 1000px;

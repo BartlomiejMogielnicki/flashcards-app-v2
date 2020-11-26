@@ -2,7 +2,7 @@ Flashcards application v2
 
 Test live on: https://flashcards-app-v2.netlify.app/
 
-Used technologies: React, Styled components, ESlint, Prettier, NodeJS, Express, MongoDB, Mongoose, Netlify, Heroku, MongoDB Atlas
+Used technologies: React, Redux, Styled components, NodeJS, Express, MongoDB, Mongoose, ESlint, Prettier, Netlify, Heroku, MongoDB Atlas
 
 Web-server code: https://github.com/BartlomiejMogielnicki/flashcards-app-api
 

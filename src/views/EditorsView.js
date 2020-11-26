@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Button from '../components/atoms/Button/Button';
-import EmptySlot from '../components/atoms/EmptySlot/EmptySlot';
-import Modal from '../components/organisms/Modal/Modal';
+import Button from 'components/atoms/Button/Button';
+import EmptySlot from 'components/atoms/EmptySlot/EmptySlot';
+import Modal from 'components/organisms/Modal/Modal';
 import {
   resetActiveCollection as resetActiveCollectionAction,
   showModal as showModalAction,
   deleteCard as deleteCardAction,
-} from '../actions';
+} from 'actions';
 
 const StyledWrapper = styled.div`
   perspective: 1000px;

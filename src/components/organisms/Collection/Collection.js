@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import Button from '../../atoms/Button/Button';
-import Paragraph from '../../atoms/Paragraph/Paragraph';
-import cardsImage from '../../../assets/images/cardsOrange.png';
+import Button from 'components/atoms/Button/Button';
+import Paragraph from 'components/atoms/Paragraph/Paragraph';
+import cardsImage from 'assets/images/cardsOrange.png';
 import {
   setActiveCollection as setActiveCollectionAction,
   deleteCollection as deleteCollectionAction,
   showModal as showModalAction,
-} from '../../../actions';
+} from 'actions';
 
 const StyledWrapper = styled.div`
   padding-bottom: 20px;

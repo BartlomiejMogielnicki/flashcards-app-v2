@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import FlipCard from '../../molecules/FlipCard/FlipCard';
+import FlipCard from 'components/molecules/FlipCard/FlipCard';
 
 const StyledWrapper = styled.div`
   perspective: 1000px;

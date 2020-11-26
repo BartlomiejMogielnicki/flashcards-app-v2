@@ -3,9 +3,9 @@ import styled, { keyframes, css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Card from '../../atoms/Card/Card';
+import Card from 'components/atoms/Card/Card';
 
-import { setFlipAnimation as setFlipAnimationAction } from '../../../actions/index';
+import { setFlipAnimation as setFlipAnimationAction } from 'actions/index';
 
 const slideInLeft = keyframes`
 from {

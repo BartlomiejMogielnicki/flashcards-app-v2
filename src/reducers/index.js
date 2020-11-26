@@ -34,6 +34,7 @@ const rootReducer = (state = initialState, action) => {
         userName: action.payload.data.user.name,
         authToken: action.payload.data.token,
         authPasswordError: false,
+        authError: '',
         isLoading: false,
       };
     case 'AUTHENTICATION_FAILURE':

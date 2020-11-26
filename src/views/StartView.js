@@ -7,11 +7,11 @@ import {
   showModal as showModalAction,
   setToken as setTokenAction,
   authenticate as authenticateAction,
-} from '../actions/index';
+} from 'actions';
 
-import Button from '../components/atoms/Button/Button';
-import Modal from '../components/organisms/Modal/Modal';
-import Spinner from '../components/atoms/Spinner/Spinner';
+import Button from 'components/atoms/Button/Button';
+import Modal from 'components/organisms/Modal/Modal';
+import Spinner from 'components/atoms/Spinner/Spinner';
 
 const StyledWrapper = styled.div`
   padding: 10px;

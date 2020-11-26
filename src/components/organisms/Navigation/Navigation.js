@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { logout as logoutAction } from '../../../actions/index';
+import { logout as logoutAction } from 'actions/index';
 
-import Button from '../../atoms/Button/Button';
-import Spinner from '../../atoms/Spinner/Spinner';
+import Button from 'components/atoms/Button/Button';
+import Spinner from 'components/atoms/Spinner/Spinner';
 
 const letters = ['F', 'L', 'A', 'S', 'H', 'C', 'A', 'R', 'D', 'S'];
 
@@ -102,12 +102,12 @@ const StyledSpinnerContainer = styled.div`
 `;
 
 const Navigation = ({ userName, logout, isLoading }) => {
-  const lerrersEl = letters.map((letter, index) => (
+  const lettersEl = letters.map((letter, index) => (
     <StyledLetters key={index}>{letter}</StyledLetters>
   ));
   return (
     <StyledNavWrapper>
-      <StyledLogoContainer>{lerrersEl}</StyledLogoContainer>
+      <StyledLogoContainer>{lettersEl}</StyledLogoContainer>
       <StyledUserContainer>
         <StyledUserInfo>
           <i className="fas fa-user" />

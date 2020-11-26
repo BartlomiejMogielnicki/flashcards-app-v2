@@ -7,11 +7,11 @@ import {
   getCollections as getCollectionsAction,
   showModal as showModalAction,
   getUserName as getUserNameAction,
-} from '../actions/index';
+} from 'actions';
 
-import Collection from '../components/organisms/Collection/Collection';
-import EmptySlot from '../components/atoms/EmptySlot/EmptySlot';
-import Modal from '../components/organisms/Modal/Modal';
+import Collection from 'components/organisms/Collection/Collection';
+import EmptySlot from 'components/atoms/EmptySlot/EmptySlot';
+import Modal from 'components/organisms/Modal/Modal';
 
 const StyledWrapper = styled.div`
   perspective: 1000px;

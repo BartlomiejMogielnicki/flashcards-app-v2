@@ -9,10 +9,10 @@ import {
   createCollection as createCollectionAction,
   createCard as createCardAction,
   deleteCollection as deleteCollectionAction,
-} from '../../../actions/index';
+} from 'actions/index';
 
-import Button from '../../atoms/Button/Button';
-import Input from '../../atoms/Input/Input';
+import Button from 'components/atoms/Button/Button';
+import Input from 'components/atoms/Input/Input';
 
 const flipIn = keyframes`
   from {
