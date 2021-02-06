@@ -27,6 +27,17 @@ const StyledButton = styled.button`
   font-size: 1.2rem;
   transition: 0.2s;
 
+  @media (max-width: 500px) {
+    height: 35px;
+    font-size: 1rem;
+
+    ${({ big }) =>
+      big &&
+      css`
+        width: 75px;
+      `}
+  }
+
   ${({ big }) =>
     big &&
     css`

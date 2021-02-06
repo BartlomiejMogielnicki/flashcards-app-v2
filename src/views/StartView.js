@@ -149,12 +149,38 @@ const showButtons = keyframes`
 const StyledButtonsContainer = styled.div`
   height: 100px;
   width: 400px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   animation: ${showButtons} 1.9s linear forwards;
+
+  @media (max-width: 500px) {
+    max-width: 90%;
+  }
+`;
+
+const StyledServerMessage = styled.div`
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  animation: ${showButtons} 2.2s linear forwards;
+
+  p {
+    margin-left: 5px;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 500px) {
+    max-width: 80%;
+    flex-direction: column;
+    p {
+      margin-top: 5px;
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 const StyledSpinnerContainer = styled.div`
@@ -223,13 +249,17 @@ class StartView extends Component {
             Log In
           </Button>
           <Button white big clicked={() => showModal('register')}>
-            Register
+            Sign Up
           </Button>
           <Button white big clicked={() => authenticate('TestUser', 'TestUserPassword')}>
             Try It
           </Button>
           {isShowModal && <Modal type={modalType} />}
         </StyledButtonsContainer>
+        <StyledServerMessage>
+          <i className="fas fa-info-circle" />
+          <p>First attempt may take few seconds due to wake up the free server.</p>
+        </StyledServerMessage>
         {isLoading && (
           <StyledSpinnerContainer>
             <Spinner />
